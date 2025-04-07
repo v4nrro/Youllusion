@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
+const auth = require(__dirname + '/routes/auth')
 const posts = require(__dirname + '/routes/posts');
 const comments = require(__dirname + '/routes/comments')
 const users = require(__dirname + '/routes/users');
@@ -19,6 +20,7 @@ let app = express();
 app.use(express.json());
 
 // Routes
+app.use('/auth', auth)
 app.use('/posts', posts);
 app.use('/comments', comments);
 app.use('/users', users);
