@@ -4,6 +4,7 @@ let userSchema = new mongoose.Schema({
     username: {
         type: String,
         required: true,
+        unique: [true, "This username is already on use"],
     },
     password: {
         type: String,
@@ -12,6 +13,7 @@ let userSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
+        unique: [true, "This email is already on use"],
     },
     avatar: {
         type: String,
