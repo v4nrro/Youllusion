@@ -1,8 +1,9 @@
 const jwt = require('jsonwebtoken');
 
 const authenticate = (req, res, next) => {
-    
+
     //TODO RETRIEVE THE TOKEN FROM THE LOGGED USER
+    //(idea: Saving in the backend at the login request the token and reference it here)
     const token = req.header('Authorization')?.replace('Bearer ', '');
 
     if (!token) {
@@ -11,6 +12,7 @@ const authenticate = (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
         req.user = decoded;
         next();
     } catch (err) {

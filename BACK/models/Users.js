@@ -23,6 +23,10 @@ let userSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
+    me: {
+        type: Boolean,
+        default: false,
+    },
     posts: [
         {
             type: mongoose.Schema.Types.ObjectId,
