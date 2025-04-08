@@ -43,12 +43,12 @@ const getPostById = async (req, res) => {
     }
 };
 
-
+//TODO USE MULTER TO UPLOAD IMAGES AND VIDEOS
 const postPost = async (req, res) => {
     try {
-        const { post, title, description, author, tags, miniature, price } = req.body;
+        const { post, title, description, tags, miniature, price } = req.body;
 
-        if (!post || !title || !description || !author || !miniature) {
+        if (!post || !title || !description || !miniature) {
             return res.status(400).json({ message: "Missing required fields" });
         }
 
@@ -56,7 +56,7 @@ const postPost = async (req, res) => {
             post,
             title,
             description,
-            author,
+            author: req.user.userId,
             tags,
             miniature,
             price,
@@ -94,7 +94,7 @@ const putPost = async (req, res) => {
     }
 }
 
-// This might be ONLY for admins
+//TODO THIS MIGHT BE ONLY FOR ADMINS
 const deletePost = async (req, res) => {
     try {
         const deletedPost = await Posts.findByIdAndDelete(req.params.id);
@@ -109,7 +109,25 @@ const deletePost = async (req, res) => {
     }
 };
 
-//TODO DELETE IF IT'S THE AUTHOR
+const deleteByAuthor = async (req, res) => {
+    try {
+        const post = await Posts.findById(req.params.id);
+
+        if (!post) {
+            return res.status(404).json({ message: "Post not found" });
+        }
+
+        if(post.author == req.user.userId){
+            const deletedPost = await Posts.findByIdAndDelete(req.params.id);
+
+            return res.status(200).json({ message: "Post deleted successfully", deletedPost });
+        }
+
+        res.status(401).json({ message: "You cannot delete a post that isn't yours" });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
 
 module.exports = {
     getAllPosts,
@@ -118,4 +136,5 @@ module.exports = {
     postPost,
     putPost,
     deletePost,
+    deleteByAuthor,
 };

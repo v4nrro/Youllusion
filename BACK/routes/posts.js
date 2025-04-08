@@ -1,6 +1,6 @@
 const express = require("express");
 
-const { getAllPosts, getPostsByAuthor, getPostById, postPost, putPost, deletePost } = require("../controllers/postsController.js");
+const { getAllPosts, getPostsByAuthor, getPostById, postPost, putPost, deletePost, deleteByAuthor } = require("../controllers/postsController.js");
 const { authenticate } = require("../middleware/auth.js");
 
 const router = express.Router();
@@ -10,6 +10,9 @@ router.get("/author/:id", getPostsByAuthor);
 router.get("/:id", getPostById);
 router.post("/", authenticate, postPost);
 router.put("/:id", putPost);
+router.delete("/author-delete/:id", authenticate, deleteByAuthor);
+
+//TODO THIS MIGHT BE ONLY FOR ADMINS
 router.delete("/:id", deletePost);
 
 module.exports = router;
