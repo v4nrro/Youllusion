@@ -1,9 +1,53 @@
 const Comments = require('../models/Comments');
+const Posts = require('../models/Posts');
 
-//TODO DELETE IF IT'S THE AUTHOR
+const postComment = async (req, res) => {
+    try {
+        const {author, text, post} = req.body;
 
-//TODO DELETE IF IT'S THE POST AUTHOR
+        if (!post || !text || !author) {
+            return res.status(400).json({ message: "Missing required fields" });
+        }
+
+        const newComment = new Comments({
+            author,
+            text,
+            post,
+        });
+
+        const savedComment = await newComment.save();
+
+        return res.status(200).json({ message: "Comment saved succesfully", savedComment });
+    } catch (error) {
+        return res.status(500).json({ message: "Internal server error", error });
+    }
+}
+
+const deleteComment = async (req, res) => {
+    try {
+        const userId = req.user.userId;
+
+        const comment = await Comments.findById(req.params.id);
+
+        if(!comment){
+            return res.status(404).json({ message: "Comment not found" })
+        }
+
+        const post = await Posts.findById(comment.post);
+
+        if(userId == comment.author || userId == post.author){
+            await Comments.findByIdAndDelete(req.params.id);
+
+            return res.status(200).json({ message: "Comment deleted succesfully" })
+        }
+        
+        return res.status(401).json({ message: "You can't delete a comment that isn't yours or in your post" })
+    } catch (error) {
+        return res.status(500).json({ message: "Internal server error", error: error })
+    }
+}
 
 module.exports = {
-    
+    deleteComment,
+    postComment,
 };
