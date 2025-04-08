@@ -4,7 +4,7 @@ const getAllPosts = async (req, res) => {
     try {
         const posts = await Posts
             .find()
-            .populate("author", "username")
+            .populate("author", "username avatar subscibers")
             .populate("comments", "text author date likes dislikes");
 
         res.status(200).json({ message: "Posts fetched successfully", posts });
@@ -94,6 +94,7 @@ const putPost = async (req, res) => {
     }
 }
 
+// This might be ONLY for admins
 const deletePost = async (req, res) => {
     try {
         const deletedPost = await Posts.findByIdAndDelete(req.params.id);
@@ -107,6 +108,8 @@ const deletePost = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+//TODO DELETE IF IT'S THE AUTHOR
 
 module.exports = {
     getAllPosts,
