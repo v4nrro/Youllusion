@@ -19,7 +19,7 @@ const postComment = async (req, res) => {
 
         return res.status(200).json({ message: "Comment saved succesfully", savedComment });
     } catch (error) {
-        return res.status(500).json({ message: "Internal server error", error });
+        return res.status(500).json({ message: error.message });
     }
 }
 
@@ -43,7 +43,7 @@ const deleteComment = async (req, res) => {
         
         return res.status(401).json({ message: "You can't delete a comment that isn't yours or in your post" })
     } catch (error) {
-        return res.status(500).json({ message: "Internal server error", error: error })
+        return res.status(500).json({ message: error.message })
     }
 }
 

@@ -2,6 +2,7 @@ const Users = require("../models/Users");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+//TODO USE MULTER TO UPLOAD IMAGES
 const register = async (req, res) => {
     try {
         const { username, email, password, repeatPassword, avatar } = req.body;
@@ -20,7 +21,7 @@ const register = async (req, res) => {
             username,
             email,
             password: hashedPassword,
-            avatar,
+            avatar, // Base64 ??
         });
 
         await newUser.save();
