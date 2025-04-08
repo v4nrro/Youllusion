@@ -28,9 +28,25 @@ const getUserById = async (req, res) => {
     }
 }
 
-//TODO getLoggedUser
+const getLoggedUser = async (req, res) => {
+    try {
+        const user = await Users
+        .findById(req.user.userId)
+        .populate("posts")
+        .populate("subscribers");
+
+        if(!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        res.status(200).json({ message: "User fetched succesfully", user });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
 
 module.exports = {
     getAllUsers,
     getUserById,
+    getLoggedUser,
 };

@@ -1,9 +1,10 @@
 const express = require('express');
 
-const { getAllPosts, getPostsByAuthor, getPostById } = require("../controllers/usersController.js");
+const { getLoggedUser } = require("../controllers/usersController.js");
+const { authenticate } = require("../middleware/auth.js");
 
 const router = express.Router();
 
-// Write here the routes for users
+router.get('/me', authenticate, getLoggedUser);
 
 module.exports = router;
