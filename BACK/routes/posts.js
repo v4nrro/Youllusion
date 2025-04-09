@@ -1,5 +1,4 @@
 const express = require("express");
-const fileUpload = require("../utils/multer");
 
 const {
     getAllPosts,
@@ -11,6 +10,7 @@ const {
     deleteByAuthor,
 } = require("../controllers/postsController.js");
 const { authenticate } = require("../middleware/auth.js");
+const { videoImageUpload } = require("../utils/multer.js");
 
 const router = express.Router();
 
@@ -21,7 +21,7 @@ router.get("/:id", getPostById);
 router.post(
     "/",
     authenticate,
-    fileUpload.fields([
+    videoImageUpload.fields([
         { name: "post", maxCount: 1 },
         { name: "miniature", maxCount: 1 },
     ]),

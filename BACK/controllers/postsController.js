@@ -47,13 +47,13 @@ const postPost = async (req, res) => {
     try {
         const { title, description, tags, price } = req.body;
 
-        if (!req.files || !req.files.video || !req.files.image || !title || !description) {
+        if (!req.files.post || !req.files.miniature || !title || !description) {
             return res.status(400).json({ message: "Missing required fields" });
         }
 
         const newPost = new Posts({
-            post: req.files.video[0].path, // Path to the uploaded video
-            miniature: req.files.image[0].path, // Path to the uploaded image
+            post: req.files.post[0].path,
+            miniature: req.files.miniature[0].path,
             title,
             description,
             author: req.user.userId,
