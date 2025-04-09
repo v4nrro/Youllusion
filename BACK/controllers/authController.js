@@ -2,16 +2,15 @@ const Users = require("../models/Users");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-//TODO USE MULTER TO UPLOAD IMAGES
 const register = async (req, res) => {
     try {
-        const { username, email, password, repeatPassword, avatar } = req.body;
+        const { username, email, password, repeatPassword } = req.body;
 
         if (password != repeatPassword) {
             return res.status(400).json({ message: "Passwords do not match" });
         }
 
-        if (!username || !email || !password) {
+        if (!username || !email || !password || !req.file) {
             return res.status(400).json({ message: "Missing required fields" });
         }
 
@@ -21,7 +20,7 @@ const register = async (req, res) => {
             username,
             email,
             password: hashedPassword,
-            avatar, // Base64 ??
+            avatar: req.file.path,
         });
 
         await newUser.save();
