@@ -43,22 +43,21 @@ const getPostById = async (req, res) => {
     }
 };
 
-//TODO USE MULTER TO UPLOAD IMAGES AND VIDEOS
 const postPost = async (req, res) => {
     try {
-        const { post, title, description, tags, miniature, price } = req.body;
+        const { title, description, tags, price } = req.body;
 
-        if (!post || !title || !description || !miniature) {
+        if (!req.files || !req.files.video || !req.files.image || !title || !description) {
             return res.status(400).json({ message: "Missing required fields" });
         }
 
         const newPost = new Posts({
-            post,
+            post: req.files.video[0].path, // Path to the uploaded video
+            miniature: req.files.image[0].path, // Path to the uploaded image
             title,
             description,
             author: req.user.userId,
             tags,
-            miniature,
             price,
         });
 
