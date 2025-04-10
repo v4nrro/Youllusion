@@ -71,23 +71,37 @@ const postPost = async (req, res) => {
 
 const putPost = async (req, res) => {
     try {
-        const { post, title, description, author, tags, miniature, price } = req.body;
+        const post = await Posts.findById(req.params.id);
 
-        if (!post || !title || !description || !author || !miniature) {
+        const { title, description, tags, price } = req.body;
+
+        if (!req.files.post || !title || !description || !req.files.miniature) {
             return res.status(400).json({ message: "Missing required fields" });
         }
 
-        const updatedPost = await Posts.findByIdAndUpdate(
-            req.params.id,
-            { post, title, description, author, tags, miniature, price },
-            { new: true }
-        );
+        if(post.author == req.user.userId){
+            const updatedPost = await Posts.findByIdAndUpdate(
+                req.params.id,
+                { 
+                    post: req.files.post[0].path,
+                    title,
+                    description,
+                    author: req.user.userId,
+                    tags,
+                    miniature: req.files.miniature[0].path,
+                    price 
+                },
+                { new: true }
+            );
 
-        if (!updatedPost) {
-            return res.status(404).json({ message: "Post not found" });
+            if (!updatedPost) {
+                return res.status(404).json({ message: "Post not found" });
+            }
+    
+            return res.status(200).json({ message: "Post updated successfully", updatedPost });
         }
 
-        res.status(200).json({ message: "Post updated successfully", updatedPost });
+        res.status(401).json({ message: "You cannot update a post that isn't yours" });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

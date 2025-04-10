@@ -28,7 +28,15 @@ router.post(
     postPost
 );
 
-router.put("/:id", putPost);
+router.put(
+    "/:id",
+    authenticate,
+    videoImageUpload.fields([
+        { name: "post", maxCount: 1 },
+        { name: "miniature", maxCount: 1 },
+    ]),
+    putPost
+);
 router.delete("/author-delete/:id", authenticate, deleteByAuthor);
 
 //TODO THIS MIGHT BE ONLY FOR ADMINS
