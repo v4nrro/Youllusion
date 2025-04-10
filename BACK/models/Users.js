@@ -23,6 +23,11 @@ let userSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
+    role: {
+        type: String,
+        required: true,
+        default: "user",
+    },
     me: {
         type: Boolean,
         default: false,
