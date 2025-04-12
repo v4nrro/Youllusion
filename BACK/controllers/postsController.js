@@ -107,8 +107,7 @@ const putPost = async (req, res) => {
     }
 }
 
-//TODO THIS MIGHT BE ONLY FOR ADMINS
-const deletePost = async (req, res) => {
+const deleteByAdmin = async (req, res) => {
     try {
         const deletedPost = await Posts.findByIdAndDelete(req.params.id);
 
@@ -148,6 +147,6 @@ module.exports = {
     getPostById,
     postPost,
     putPost,
-    deletePost,
+    deleteByAdmin,
     deleteByAuthor,
 };

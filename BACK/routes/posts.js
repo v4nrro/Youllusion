@@ -6,10 +6,10 @@ const {
     getPostById,
     postPost,
     putPost,
-    deletePost,
     deleteByAuthor,
+    deleteByAdmin,
 } = require("../controllers/postsController.js");
-const { authenticate } = require("../middleware/auth.js");
+const { authenticate, role } = require("../middleware/auth.js");
 const { videoImageUpload } = require("../utils/multer.js");
 
 const router = express.Router();
@@ -37,9 +37,8 @@ router.put(
     ]),
     putPost
 );
-router.delete("/author-delete/:id", authenticate, deleteByAuthor);
 
-//TODO THIS MIGHT BE ONLY FOR ADMINS
-router.delete("/:id", deletePost);
+router.delete("/author-delete/:id", authenticate, deleteByAuthor);
+router.delete("/:id",authenticate, role(['admin']), deleteByAdmin);
 
 module.exports = router;

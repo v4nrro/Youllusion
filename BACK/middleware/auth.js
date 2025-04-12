@@ -17,14 +17,13 @@ const authenticate = (req, res, next) => {
     }
 };
 
-//TODO TEST THIS
 const role = (roles) => {
     return (req, res, next) => {
         if(roles.includes(req.user.role)) {
             next();
         }
         else {
-            return res.status(403).json({ message: 'Permission denied' });
+            return res.status(403).json({ message: 'Permission denied, your role is not the required.' });
         }
     }
 };
