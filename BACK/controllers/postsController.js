@@ -1,4 +1,5 @@
 const Posts = require("../models/Posts");
+const Users = require("../models/Users")
 
 const getAllPosts = async (req, res) => {
     try {
@@ -13,18 +14,44 @@ const getAllPosts = async (req, res) => {
     }
 };
 
-const getPostsByAuthor = async (req, res) => {
+const getFreePosts = async (req, res) => {
     try {
         const posts = await Posts
-            .find({ author: req.params.id })
-            .populate("author", "username")
+            .find({ price: 0 })
+            .populate("author", "username avatar subscibers")
             .populate("comments", "text author date likes dislikes");
-
+    
         res.status(200).json({ message: "Posts fetched successfully", posts });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
+
+const getPaidPosts = async (req, res) => {
+    try {
+        const posts = await Posts
+            .find({ price: { $gt: 0 } })
+            .populate("author", "username avatar subscibers")
+            .populate("comments", "text author date likes dislikes");
+    
+        res.status(200).json({ message: "Posts fetched successfully", posts });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// const getPostsByAuthor = async (req, res) => {
+//     try {
+//         const posts = await Posts
+//             .find({ author: req.params.id })
+//             .populate("author", "username")
+//             .populate("comments", "text author date likes dislikes");
+
+//         res.status(200).json({ message: "Posts fetched successfully", posts });
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// };
 
 const getPostById = async (req, res) => {
     try {
@@ -62,6 +89,10 @@ const postPost = async (req, res) => {
         });
 
         const savedPost = await newPost.save();
+
+        await Users.findByIdAndUpdate(savedPost.author, {
+            $push: { posts: savedPost._id },
+        });
 
         res.status(200).json({ message: "Post created successfully", savedPost });
     } catch (error) {
@@ -143,10 +174,12 @@ const deleteByAuthor = async (req, res) => {
 
 module.exports = {
     getAllPosts,
-    getPostsByAuthor,
+    //getPostsByAuthor,
     getPostById,
     postPost,
     putPost,
     deleteByAdmin,
     deleteByAuthor,
+    getFreePosts,
+    getPaidPosts,
 };
