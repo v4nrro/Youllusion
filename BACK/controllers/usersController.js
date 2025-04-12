@@ -3,7 +3,8 @@ const Users = require('../models/Users');
 const getAllUsers = async (req, res) => {
     try {
         const users = await Users
-            .find();
+            .find()
+            .populate("posts");
 
         res.status(200).json({ message: "Users fetched successfully", users });
     } catch (error) {
@@ -15,6 +16,7 @@ const getUserById = async (req, res) => {
     try {
         const user = await Users
             .findById(req.params.id)
+            .select("username posts subscribers avatar")
             .populate("posts")
             .populate("subscribers");
 
@@ -45,8 +47,23 @@ const getLoggedUser = async (req, res) => {
     }
 }
 
+const putByMe = async (req, res) => {
+
+}
+
+const deleteByMe = async (req, res) => {
+
+}
+
+const deleteByAdmin = async (req, res) => {
+
+}
+
 module.exports = {
     getAllUsers,
     getUserById,
     getLoggedUser,
+    putByMe,
+    deleteByMe,
+    deleteByAdmin,
 };
