@@ -2,7 +2,6 @@ const express = require("express");
 
 const {
     getAllPosts,
-    getPostsByAuthor,
     getPostById,
     postPost,
     putPost,
@@ -19,7 +18,6 @@ const router = express.Router();
 router.get("/", getAllPosts);
 router.get("/free", getFreePosts);
 router.get("/paid", getPaidPosts);
-// router.get("/author/:id", getPostsByAuthor);
 router.get("/:id", getPostById);
 
 router.post(
