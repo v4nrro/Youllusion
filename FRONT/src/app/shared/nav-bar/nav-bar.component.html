@@ -1,106 +1,78 @@
-// app.component.html
-<div class="container-fluid">
-  <div class="row">
-    <!-- Sidebar Navigation -->
-    <nav id="sidebar" class="col-md-2 d-md-block bg-dark sidebar">
-      <div class="position-sticky">
-        <div class="sidebar-header">
-          <img src="/api/placeholder/120/40" alt="Logo" class="logo mt-3 mb-4">
+<!-- navbar.component.html -->
+<div class="youllusion-wrapper">
+    <!-- Top navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white py-2 fixed-top">
+      <div class="container-fluid top-nav">
+        <!-- Menu toggle and logo -->
+        <div class="d-flex align-items-center">
+          <button class="btn btn-outline-light border-0 me-2" (click)="toggleSidebar()">
+            <i class="bi bi-list fs-4"></i>
+          </button>
+          <a class="navbar-brand d-flex align-items-center" href="#">
+            <i class="bi bi-youtube text-danger fs-3"></i>
+            <span class="ms-1 fw-bold text-white">Youllusion</span>
+          </a>
         </div>
-        <ul class="nav flex-column">
-          <li class="nav-item">
-            <a class="nav-link active" href="#">
-              <i class="bi bi-house-door"></i>
-              <span>Home</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="bi bi-compass"></i>
-              <span>Explore</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="bi bi-collection-play"></i>
-              <span>Subscriptions</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="bi bi-archive"></i>
-              <span>Library</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="bi bi-clock-history"></i>
-              <span>History</span>
-            </a>
-          </li>
-          <li class="nav-item mt-3">
-            <h6 class="sidebar-heading px-3 text-muted text-uppercase">Subscriptions</h6>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <img src="/api/placeholder/24/24" class="rounded-circle channel-icon">
-              <span>Channel 1</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <img src="/api/placeholder/24/24" class="rounded-circle channel-icon">
-              <span>Channel 2</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <img src="/api/placeholder/24/24" class="rounded-circle channel-icon">
-              <span>Channel 3</span>
-            </a>
-          </li>
-        </ul>
+  
+        <!-- Search bar -->
+        <div class="search-container mx-auto d-none d-md-flex">
+          <div class="input-group">
+            <input 
+              type="text" 
+              class="form-control search-input border-end-0" 
+              placeholder="Search" 
+              #searchInput
+              (keyup.enter)="search(searchInput.value)"
+            >
+            <button class="btn btn-outline-secondary search-button" type="button" (click)="search(searchInput.value)">
+              <i class="bi bi-search"></i>
+            </button>
+          </div>
+        </div>
+  
+        <!-- Right side icons -->
+        <div class="d-flex align-items-center">
+          <button class="btn btn-outline-light border-0 ms-2">
+            <i class="bi bi-camera-video fs-5"></i>
+          </button>
+          <button class="btn btn-outline-light border-0 ms-2">
+            <i class="bi bi-grid-3x3-gap fs-5"></i>
+          </button>
+          <button class="btn btn-outline-light border-0 ms-2">
+            <i class="bi bi-bell fs-5"></i>
+          </button>
+          <button class="btn btn-outline-primary ms-2 rounded-circle user-avatar">
+            <span>A</span>
+          </button>
+        </div>
       </div>
     </nav>
-
-    <!-- Main Content Area -->
-    <main class="col-md-10 ms-sm-auto px-md-4">
-      <!-- Top Search Bar -->
-      <div class="row py-2 sticky-top bg-white border-bottom">
-        <div class="col-12 d-flex align-items-center">
-          <button class="btn d-md-none me-2" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar">
-            <i class="bi bi-list"></i>
-          </button>
-          
-          <div class="search-container flex-grow-1 d-flex">
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-secondary" type="button">
-                <i class="bi bi-search"></i>
-              </button>
-            </div>
-          </div>
-          
-          <div class="ms-auto d-flex align-items-center">
-            <button class="btn btn-outline-secondary me-2">
-              <i class="bi bi-camera-video"></i>
-            </button>
-            <button class="btn btn-outline-secondary me-2">
-              <i class="bi bi-grid"></i>
-            </button>
-            <button class="btn btn-outline-secondary me-2">
-              <i class="bi bi-bell"></i>
-            </button>
-            <img src="/api/placeholder/32/32" class="rounded-circle" alt="Profile">
-          </div>
+  
+    <!-- Main content area with sidebar and content -->
+    <div class="content-area">
+      <!-- Sidebar -->
+      <div class="sidebar" [class]="{'collapsed': isMenuCollapsed}">
+        <div class="sidebar-menu">
+            @for (item of navItems; track $index) {
+              <div class="sidebar-item">
+                <a href="#" class="sidebar-link d-flex flex-column">
+                    <p class="ms-4">
+                        <i [class]="item.icon"></i>
+                        <span class="text-white ms-3">{{item.label}}</span>
+                    </p>
+                </a>
+              </div>
+            }
         </div>
       </div>
-      
-      <!-- Your content goes here -->
-      <div class="container mt-4">
-        <h2>Main Content Area</h2>
-        <p>Your video content will appear here.</p>
+  
+      <!-- Main content -->
+      <div class="main-content" [class]="{'expanded': isMenuCollapsed}">
+        <!-- Content goes here -->
+        <div class="container-fluid p-3">
+          <h5>Main content area</h5>
+          <p>Your videos and content will appear here</p>
+        </div>
       </div>
-    </main>
-  </div>
+    </div>
 </div>

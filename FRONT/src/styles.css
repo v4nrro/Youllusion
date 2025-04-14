@@ -1,1 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+@import "bootstrap/dist/css/bootstrap.css";
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
+:root {
+    --bg: #281D16;
+    --hover: #594D46;
+    --double-hover: #645952;
+}
