@@ -1,8 +1,9 @@
-<!-- navbar.component.html -->
 <div class="youllusion-wrapper">
+
     <!-- Top navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white py-2 fixed-top">
       <div class="container-fluid top-nav">
+
         <!-- Menu toggle and logo -->
         <div class="d-flex align-items-center">
           <button class="btn btn-outline-light border-0 me-2" (click)="toggleSidebar()">
@@ -14,7 +15,7 @@
           </a>
         </div>
   
-        <!-- Search bar -->
+        <!-- TODO MAKE THIS FUNCTIONAL FETCHING THE DATA WITH SEARCH (Search bar) -->
         <div class="search-container mx-auto d-none d-md-flex">
           <div class="input-group">
             <input 
@@ -30,16 +31,13 @@
           </div>
         </div>
   
-        <!-- Right side icons -->
+        <!-- TODO FETCH THE DATA FOR THE USER IF LOGGED IN (Right side icons) -->
         <div class="d-flex align-items-center">
           <button class="btn btn-outline-light border-0 ms-2">
             <i class="bi bi-camera-video fs-5"></i>
           </button>
           <button class="btn btn-outline-light border-0 ms-2">
-            <i class="bi bi-grid-3x3-gap fs-5"></i>
-          </button>
-          <button class="btn btn-outline-light border-0 ms-2">
-            <i class="bi bi-bell fs-5"></i>
+            <i class="bi bi-gear fs-5"></i>
           </button>
           <button class="btn btn-outline-primary ms-2 rounded-circle user-avatar">
             <span>A</span>
@@ -48,31 +46,30 @@
       </div>
     </nav>
   
-    <!-- Main content area with sidebar and content -->
+    <!-- TODO MOVE THIS TO ANOTHER COMPONENT (Main content area with sidebar and content) -->
     <div class="content-area">
-      <!-- Sidebar -->
-      <div class="sidebar" [class]="{'collapsed': isMenuCollapsed}">
-        <div class="sidebar-menu">
-            @for (item of navItems; track $index) {
-              <div class="sidebar-item">
-                <a href="#" class="sidebar-link d-flex flex-column">
-                    <p class="ms-4">
-                        <i [class]="item.icon"></i>
-                        <span class="text-white ms-3">{{item.label}}</span>
-                    </p>
-                </a>
-              </div>
-            }
+        <!-- Sidebar -->
+        <div class="sidebar" [class]="{'collapsed': isMenuCollapsed}">
+          <div class="sidebar-menu">
+              @for (item of navItems; track $index) {
+                <div class="sidebar-item">
+                  <a href="#" class="sidebar-link d-flex flex-column">
+                      <div class="d-flex align-items-center">
+                          <i [class]="item.icon"></i>
+                          <span class="text-white ms-3">{{item.label}}</span>
+                      </div>
+                  </a>
+                </div>
+              }
+          </div>
         </div>
-      </div>
+    
+        <!-- TODO MOVE THIS TO ANOTHER COMPONENT (Main content area with the videos) -->
+        <div class="main-content" [class]="{'expanded': isMenuCollapsed}">
+          <div class="container-fluid p-3">
+              <video-card></video-card>
+          </div>
   
-      <!-- Main content -->
-      <div class="main-content" [class]="{'expanded': isMenuCollapsed}">
-        <!-- Content goes here -->
-        <div class="container-fluid p-3">
-          <h5>Main content area</h5>
-          <p>Your videos and content will appear here</p>
         </div>
       </div>
-    </div>
 </div>

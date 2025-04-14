@@ -68,7 +68,7 @@
   overflow-x: hidden;
 
   &.collapsed {
-    width: 72px;
+    width: 50px;
   }
 
   .sidebar-menu {
@@ -76,6 +76,7 @@
   }
 
   .sidebar-item {
+    padding: 8px;
     .sidebar-link {
       text-decoration: none;
       color: #606060;
@@ -104,25 +105,21 @@
   flex: 1;
   padding: 16px;
   transition: margin-left 0.3s;
-  background-color: #463931;
+  background-color: var(--bg);
 
   &.expanded {
-    margin-left: 72px;
+    margin-left: 50px;
   }
 }
 
 /* Responsive adjustments */
 @media (max-width: 991.98px) {
   .sidebar {
-    width: 72px;
-
-    .sidebar-item span {
-      display: none;
-    }
+    width: 50px;
   }
 
   .main-content {
-    margin-left: 72px;
+    margin-left: 50px;
   }
 }
 

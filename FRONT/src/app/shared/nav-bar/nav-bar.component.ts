@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { VideoCardComponent } from "../../video-card/video-card.component";
 
 @Component({
   selector: 'nav-bar',
-  imports: [],
+  imports: [VideoCardComponent],
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.css'
 })
@@ -11,12 +12,8 @@ export class NavBarComponent {
   
     navItems = [
       { icon: 'bi bi-house-door-fill text-white', label: 'Home' },
-      { icon: 'bi bi-compass text-white', label: 'Explore' },
       { icon: 'bi bi-collection-play text-white', label: 'Subscriptions' },
-      { icon: 'bi bi-archive text-white', label: 'Library' },
-      { icon: 'bi bi-clock-history text-white', label: 'History' },
       { icon: 'bi bi-play-btn text-white', label: 'Your videos' },
-      { icon: 'bi bi-clock text-white', label: 'Watch later' },
       { icon: 'bi bi-hand-thumbs-up text-white', label: 'Liked videos' }
     ];
   
