@@ -14,6 +14,6 @@ export const routes: Routes = [
     //     path: 'profile',
     //     loadChildren: () => import('./profile/profile.routes').then(m => m.profileRoutes),
     // },
-    { path: '', redirectTo: '/auth/login',  pathMatch: 'full' },
-    { path: '**', redirectTo: '/auth/login' },
+    // { path: '', redirectTo: '/auth/login',  pathMatch: 'full' },
+    // { path: '**', redirectTo: '/auth/login' },
 ];
