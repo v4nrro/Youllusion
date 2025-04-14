@@ -1,0 +1,46 @@
+.yt-card {
+  transition: transform 0.2s;
+  max-width: 360px;
+  user-select: none;
+  cursor: pointer;
+}
+
+.yt-card:hover {
+  transform: scale(1.03);
+}
+
+.thumbnail-container {
+  position: relative;
+}
+
+a{
+    text-decoration: none;
+
+    &:hover{
+        transition: all 0.1s;
+        color: white;
+    }
+}
+
+.video-duration {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 2px 4px;
+  border-radius: 2px;
+  font-size: 12px;
+}
+
+.channel-img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.channel-name,
+.video-stats {
+  font-size: 14px;
+  color: #606060;
+}
