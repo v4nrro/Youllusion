@@ -1,28 +1,32 @@
-import { Component } from '@angular/core';
-import { VideoCardComponent } from "../../video-card/video-card.component";
+import { Component, model } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'nav-bar',
-  imports: [VideoCardComponent],
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.css'
 })
 export class NavBarComponent {
-    isMenuCollapsed = false;
-  
+    isMenuCollapsed = model(true);
+
     navItems = [
-      { icon: 'bi bi-house-door-fill text-white', label: 'Home' },
-      { icon: 'bi bi-collection-play text-white', label: 'Subscriptions' },
-      { icon: 'bi bi-play-btn text-white', label: 'Your videos' },
-      { icon: 'bi bi-hand-thumbs-up text-white', label: 'Liked videos' }
+      { route: '/home', icon: 'bi bi-house-door-fill text-white', label: 'Home' },
+      { route: '/subscriptions', icon: 'bi bi-collection-play text-white', label: 'Subscriptions' },
+      { route: '/your-videos', icon: 'bi bi-play-btn text-white', label: 'Your videos' },
+      { route: '/liked-videos', icon: 'bi bi-hand-thumbs-up text-white', label: 'Liked videos' }
     ];
   
     toggleSidebar() {
-      this.isMenuCollapsed = !this.isMenuCollapsed;
+        this.isMenuCollapsed.update(isMenuCollapsed => !isMenuCollapsed);
     }
     
     search(term: string) {
       console.log('Searching for:', term);
       // Implement your search logic here
+    }
+
+    clicking() {
+        console.log("clicking");
     }
 }

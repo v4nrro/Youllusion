@@ -15,7 +15,7 @@
           </a>
         </div>
   
-        <!-- TODO MAKE THIS FUNCTIONAL FETCHING THE DATA WITH SEARCH (Search bar) -->
+        <!-- TODO MAKE THIS FUNCTIONAL FETCHING THE DATA WITH SEARCH VIA QUERY PARAMS (Search bar) -->
         <div class="search-container mx-auto d-none d-md-flex">
           <div class="input-group">
             <input 
@@ -48,28 +48,27 @@
   
     <!-- TODO MOVE THIS TO ANOTHER COMPONENT (Main content area with sidebar and content) -->
     <div class="content-area">
+
         <!-- Sidebar -->
-        <div class="sidebar" [class]="{'collapsed': isMenuCollapsed}">
+        <div class="sidebar" [class]="{'collapsed': isMenuCollapsed()}">
           <div class="sidebar-menu">
               @for (item of navItems; track $index) {
                 <div class="sidebar-item">
-                  <a href="#" class="sidebar-link d-flex flex-column">
+                  <a [routerLink]="[item.route]" routerLinkActive="router-link-active" class="sidebar-link d-flex flex-column">
                       <div class="d-flex align-items-center">
                           <i [class]="item.icon"></i>
                           <span class="text-white ms-3">{{item.label}}</span>
                       </div>
-                  </a>
+                    </a>
                 </div>
               }
           </div>
         </div>
-    
-        <!-- TODO MOVE THIS TO ANOTHER COMPONENT (Main content area with the videos) -->
-        <div class="main-content" [class]="{'expanded': isMenuCollapsed}">
-          <div class="container-fluid p-3">
-              <video-card></video-card>
-          </div>
-  
+
+        <div class="main-content" [class]="{'expanded': isMenuCollapsed()}">
+            <div class="container-fluid p-3">
+                <ng-content select="[routes]"></ng-content>
+            </div>
         </div>
-      </div>
+    </div>
 </div>
