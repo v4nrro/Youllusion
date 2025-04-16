@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const cors = require('cors');
+
 
 const auth = require(__dirname + '/routes/auth')
 const posts = require(__dirname + '/routes/posts');
@@ -15,6 +17,11 @@ mongoose.connect(process.env.DATABASE_URL);
 
 // Express server
 let app = express();
+
+// Allow only requests from Angular app
+app.use(cors({
+    origin: 'http://localhost:4200'
+}));
 
 // JSON parser
 app.use(express.json());
