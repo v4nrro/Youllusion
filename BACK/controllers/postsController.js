@@ -66,8 +66,8 @@ const postPost = async (req, res) => {
         }
 
         const newPost = new Posts({
-            post: req.files.post[0].path,
-            miniature: req.files.miniature[0].path,
+            post: '/uploads/videos/' + req.files.post[0].filename,
+            miniature: '/uploads/images/' + req.files.miniature[0].filename,
             title,
             description,
             author: req.user.userId,
