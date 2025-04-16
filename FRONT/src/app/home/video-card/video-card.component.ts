@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Post } from '../interfaces/Post';
 
 @Component({
   selector: 'video-card',
@@ -8,5 +9,5 @@ import { RouterLink } from '@angular/router';
   styleUrl: './video-card.component.css'
 })
 export class VideoCardComponent {
-
+    post = input.required<Post>();
 }

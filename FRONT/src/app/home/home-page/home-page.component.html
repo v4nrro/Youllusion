@@ -1,3 +1,7 @@
-<div class="d-flex">
-    <video-card></video-card>
+<div class="row">
+    @for (post of this.posts(); track post._id) {
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+            <video-card [post]="post"></video-card>
+        </div>
+    }
 </div>

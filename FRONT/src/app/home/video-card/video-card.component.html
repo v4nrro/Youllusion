@@ -13,9 +13,9 @@
                     </a>
                 </div>
                 <div class="col">
-                    <h5 class="mb-1">How to Build Amazing Websites with Bootstrap 5 - Complete Tutorial</h5>
+                    <h5 class="mb-1">{{ post().title }}</h5>
                     <a [routerLink]="['/profile/:id']" class="channel-name mb-1">CodeWithMe</a>
-                    <p class="video-stats mb-0">248K views • 3 weeks ago</p>
+                    <p class="video-stats mb-0">248K views • {{ post().date }}</p>
                 </div>
             </div>
         </a>
