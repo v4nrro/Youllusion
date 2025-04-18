@@ -20,7 +20,7 @@ const register = async (req, res) => {
             username,
             email,
             password: hashedPassword,
-            avatar: req.file.path,
+            avatar: process.env.API_URL + '/uploads/images/' + req.file.filename,
         });
 
         await newUser.save();

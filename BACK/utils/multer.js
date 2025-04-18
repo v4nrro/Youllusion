@@ -8,9 +8,9 @@ const storage = multer.diskStorage({
 
         if (fileTypes.test(extname)) {
             if (/mp4|mkv|avi|mov/.test(extname)) {
-                cb(null, "../uploads/videos");
+                cb(null, "uploads/videos");
             } else {
-                cb(null, "../uploads/images");
+                cb(null, "uploads/images");
             }
         } else {
             cb(new Error("Invalid file type"));

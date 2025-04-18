@@ -3,13 +3,13 @@
     <div class="yt-card">
         <a [routerLink]="['/home/watch/:id']">
             <div class="thumbnail-container mb-2">
-                <img src="images/Youllusion Image Test.png" alt="Video Thumbnail" class="img-fluid rounded">
+                <img [src]="post().post" alt="Video Thumbnail" class="img-fluid rounded">
                 <span class="video-duration">10:28</span>
             </div>
             <div class="row g-2">
                 <div class="col-auto">
                     <a [routerLink]="['/profile/:id']">
-                        <img src="images/Youllusion Image Test.png" alt="Channel Icon" class="channel-img">
+                        <img [src]="post().post" alt="Channel Icon" class="channel-img">
                     </a>
                 </div>
                 <div class="col">
