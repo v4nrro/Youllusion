@@ -23,6 +23,11 @@ a{
     }
 }
 
+img{
+    width: 330px;
+    height: 200px;
+}
+
 .video-duration {
   position: absolute;
   bottom: 8px;

@@ -1,21 +1,19 @@
-<!-- TODO MOUNT ONE CARD FETCHING THE DATA FROM THE BACK -->
 <div class="container mt-5">
     <div class="yt-card">
         <a [routerLink]="['/home/watch/:id']">
             <div class="thumbnail-container mb-2">
                 <img [src]="post().post" alt="Video Thumbnail" class="img-fluid rounded">
-                <span class="video-duration">10:28</span>
             </div>
             <div class="row g-2">
                 <div class="col-auto">
                     <a [routerLink]="['/profile/:id']">
-                        <img [src]="post().post" alt="Channel Icon" class="channel-img">
+                        <img [src]="post().author.avatar" alt="Channel Icon" class="channel-img">
                     </a>
                 </div>
                 <div class="col">
                     <h5 class="mb-1">{{ post().title }}</h5>
-                    <a [routerLink]="['/profile/:id']" class="channel-name mb-1">CodeWithMe</a>
-                    <p class="video-stats mb-0">248K views • {{ post().date }}</p>
+                    <a [routerLink]="['/profile/:id']" class="channel-name mb-1">{{ post().author.username }}</a>
+                    <p class="video-stats mb-0">{{ post().date | date }}</p>
                 </div>
             </div>
         </a>

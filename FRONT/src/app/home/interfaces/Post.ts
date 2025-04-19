@@ -2,7 +2,7 @@ export interface Post {
     _id: string;
     title: string;
     description: string;
-    author: string | null;
+    author: Author;
     date: string;
     post: string; 
     miniature: string;
@@ -10,5 +10,15 @@ export interface Post {
     tags: string[];
     likes: string[];
     dislikes: string[];
-    comments: any[];
+    comments: Comment[];
+}
+
+export interface Author {
+    _id: string;
+    username: string;
+    avatar: string;
+}
+
+export interface Comment {
+
 }
