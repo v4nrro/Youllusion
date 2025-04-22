@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { videoResolver } from './resolvers/video.resolver';
 
 export const homeRoutes: Routes = [
     {
@@ -6,15 +7,12 @@ export const homeRoutes: Routes = [
         loadComponent: () => import('./home-page/home-page.component').then(m => m.HomePageComponent),
         title: 'Home Page',
     },
-    // {
-    //     path: 'subscriptions',
-    //     loadComponent: () => import('./home-page/home-page.component').then(m => m.HomePageComponent),
-    //     title: 'Subscriptions Page',
-    // },
-    // {
-    //     path: 'profile',
-    //     loadComponent: () => import('./profile/profile.routes').then(m => m.profileRoutes),
-    // },
-    // { path: '', redirectTo: '/auth/login',  pathMatch: 'full' },
-    // { path: '**', redirectTo: '/auth/login' },
+    {
+        path: ':id',
+        loadComponent: () => import('./video-detail/video-detail.component').then(m => m.VideoDetailComponent),
+        title: 'Video Detail Page',
+        resolve: {
+            post: videoResolver
+        }
+    },
 ];

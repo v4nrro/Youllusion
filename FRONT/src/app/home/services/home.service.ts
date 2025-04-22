@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { PostsResponse } from '../interfaces/responses';
+import { PostsResponse, SinglePostResponse } from '../interfaces/responses';
 import { Post } from '../interfaces/Post';
 
 @Injectable({
@@ -18,5 +18,13 @@ export class HomeService {
                 return resp.posts;
             })
         );
+    }
+
+    getPost(id: string): Observable<Post> {
+        return this.#http.get<SinglePostResponse>(`${this.#homeUrl}/${id}`).pipe(
+            map((resp) => {
+                return resp.post
+            })
+        )
     }
 }
