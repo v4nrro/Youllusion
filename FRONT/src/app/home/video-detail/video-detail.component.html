@@ -1,5 +1,7 @@
 @if(post()){
-    <p>{{post().post}}</p>
+    <video-replayer [post]="post()"></video-replayer>
+    
+    <p>{{ post().post }}</p>
 }
 @else {
     <p>Cargando vídeo...</p>

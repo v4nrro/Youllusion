@@ -9,5 +9,5 @@ import { Post } from '../interfaces/Post';
 })
 export class VideoReplayerComponent {
     post = input.required<Post>();
-    
+     
 }
