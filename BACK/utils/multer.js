@@ -3,11 +3,11 @@ const path = require("path");
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        const fileTypes = /mp4|mkv|avi|mov|jpg|jpeg|png|gif/;
+        const fileTypes = /mp4|mkv|avi|jpg|jpeg|png|gif/;
         const extname = path.extname(file.originalname).toLowerCase();
 
         if (fileTypes.test(extname)) {
-            if (/mp4|mkv|avi|mov/.test(extname)) {
+            if (/mp4|mkv|avi/.test(extname)) {
                 cb(null, "uploads/videos");
             } else {
                 cb(null, "uploads/images");
@@ -24,7 +24,7 @@ const storage = multer.diskStorage({
 const videoImageUpload = multer({
     storage,
     fileFilter: (req, file, cb) => {
-        const allowedExtensions = /mp4|mkv|avi|mov|jpg|jpeg|png|gif/;
+        const allowedExtensions = /mp4|mkv|avi|jpg|jpeg|png|gif/;
         const extname = allowedExtensions.test(
             path.extname(file.originalname).toLowerCase().replace('.', '')
         );
