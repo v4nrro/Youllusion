@@ -1,10 +1,10 @@
 import { Component, input } from '@angular/core';
 import { Post } from '../interfaces/Post';
-import { VideoReplayerComponent } from "../video-replayer/video-replayer.component";
+import { VideoPlayerComponent } from "../video-player/video-player.component";
 
 @Component({
   selector: 'video-detail',
-  imports: [VideoReplayerComponent],
+  imports: [VideoPlayerComponent],
   templateUrl: './video-detail.component.html',
   styleUrl: './video-detail.component.css'
 })

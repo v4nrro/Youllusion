@@ -1,6 +1,6 @@
 <div class="container mt-5">
     <div class="yt-card">
-        <a [routerLink]="['/home/watch/:id']">
+        <a [routerLink]="['/home/watch', post()._id]">
             <div class="thumbnail-container mb-2">
                 <img [src]="post().miniature" alt="video thumbnail" class="img-fluid rounded">
             </div>

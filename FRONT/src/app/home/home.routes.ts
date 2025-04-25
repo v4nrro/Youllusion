@@ -8,7 +8,7 @@ export const homeRoutes: Routes = [
         title: 'Home Page',
     },
     {
-        path: ':id',
+        path: 'watch/:id',
         loadComponent: () => import('./video-detail/video-detail.component').then(m => m.VideoDetailComponent),
         title: 'Video Detail Page',
         resolve: {

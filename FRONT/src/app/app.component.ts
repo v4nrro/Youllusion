@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavBarComponent } from "./shared/nav-bar/nav-bar.component";
 
@@ -10,4 +10,10 @@ import { NavBarComponent } from "./shared/nav-bar/nav-bar.component";
 })
 export class AppComponent {
   title = 'FRONT';
+
+  menuStatus = signal(false);
+
+  changeStatus() {
+    this.menuStatus.set(!this.menuStatus())
+  }
 }

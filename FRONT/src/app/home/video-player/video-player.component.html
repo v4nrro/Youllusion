@@ -1,0 +1,7 @@
+<video [src]="post().post" controls></video>
+<h3>{{ post().title }}</h3>
+<a [routerLink]="['/profile', post().author._id]">
+    <img [src]="post().author.avatar" alt="Channel image" class="channel-img">
+        
+    <span class="ms-2">{{ post().author.username }}</span>
+</a>
