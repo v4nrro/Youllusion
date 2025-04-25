@@ -44,7 +44,7 @@ const getPostById = async (req, res) => {
     try {
         const post = await Posts
             .findById(req.params.id)
-            .populate("author", "username")
+            .populate("author", "username avatar")
             .populate("comments", "text author date likes dislikes");
 
         if (!post) {
