@@ -100,6 +100,35 @@
   }
 }
 
+.input-group {
+    width: 600px;
+    
+    .btn {
+        border-color: var(--hover);
+        background-color: var(--hover);
+        border-radius: 20px;
+        width: 60px;
+        color: white;
+        &:hover{
+            background-color: var(--double-hover);
+        }
+    }
+
+    .form-control {
+        background-color: var(--bg);
+        border-radius: 20px;
+        border-color: var(--hover);
+        color: white;
+    
+        &::placeholder{
+            color: gray;
+        }
+        
+    }
+}
+
+
+
 /* Responsive adjustments */
 @media (max-width: 991.98px) {
   .sidebar {

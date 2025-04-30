@@ -22,7 +22,7 @@ a{
 .comments {
     border: 1px solid var(--hover);
     border-radius: 10px;
-    height: 74vh;
+    height: 73vh;
 
     h2{
         padding: 1.3rem;
@@ -54,4 +54,24 @@ a{
     word-wrap: break-word;
     word-break: break-word;
     white-space: normal;
+}
+
+.input-group {
+    width: 300px;
+
+    .form-control {
+        background-color: var(--bg);
+        border: 0;
+        color: white;
+    
+        &::placeholder{
+            color: gray;
+        }
+        
+        &:focus{
+            outline: none;
+            box-shadow: none;
+        }
+        
+    }
 }
