@@ -1,7 +1,42 @@
-<video [src]="post().post" controls></video>
-<h3>{{ post().title }}</h3>
-<a [routerLink]="['/profile', post().author._id]">
-    <img [src]="post().author.avatar" alt="Channel image" class="channel-img">
-        
-    <span class="ms-2">{{ post().author.username }}</span>
-</a>
+<div class="video-section d-flex">
+    <div class="video">
+        <video [src]="post().post" controls></video>
+        <h3>{{ post().title }}</h3>
+        <a [routerLink]="['/profile', post().author._id]">
+            <img [src]="post().author.avatar" alt="Channel image" class="channel-img">
+                
+            <span class="ms-2">{{ post().author.username }}</span>
+        </a>
+        <h5 class="mt-3">Description:</h5>
+        <p class="mt-3">{{post().description}}</p>
+    </div>
+    <div class="comments ms-5">
+        <h2>Comments</h2>
+        <div class="comment-section">
+            @for(comment of post().comments; track comment._id) {
+                <div class="comment-header d-flex align-items-center mt-3">
+                    <img [src]="comment.author.avatar" alt="Author avatar" class="user-avatar rounded-circle">
+                    <div class="comment-author-info ms-2">
+                        <span class="comment-author-username">{{ comment.author.username }}</span>
+                        <small class="ms-4 comment-date">{{ comment.date | date:'short' }}</small>
+                </div>
+                </div>
+                <small class="comment-text">ddddddddddddd ddddddd dddddddddddddddddddd dddd ddddddddddd ddddddd</small>
+                <div class="comment-actions d-flex align-items-center">
+                    <button (click)="likeComment(comment._id)" class="btn btn-sm btn-outline-primary">
+                        Like ({{ comment.likes.length }})
+                    </button>
+                    <button (click)="dislikeComment(comment._id)" class="btn btn-sm btn-outline-secondary ms-2">
+                        Dislike ({{ comment.dislikes.length }})
+                    </button>
+                </div>
+            }
+        </div>
+        <div class="input">
+            <input type="text" name="" id="" placeholder="Write your comment...">
+            <button (click)="commentPost(post()._id)" class="btn btn-warning ms-2">Send</button>
+        </div>
+    </div>
+</div>
+
+<home-page></home-page>

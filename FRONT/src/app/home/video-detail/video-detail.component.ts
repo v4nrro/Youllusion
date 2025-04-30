@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, effect, input } from '@angular/core';
 import { Post } from '../interfaces/Post';
 import { VideoPlayerComponent } from "../video-player/video-player.component";
 

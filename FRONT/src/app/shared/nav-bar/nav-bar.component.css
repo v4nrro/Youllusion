@@ -38,18 +38,6 @@
   }
 }
 
-/* User avatar */
-.user-avatar {
-  width: 32px;
-  height: 32px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #6366f1;
-  color: white;
-  font-weight: bold;
-}
-
 /* Content area with sidebar */
 .content-area {
   display: flex;

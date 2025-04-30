@@ -20,5 +20,11 @@ export interface Author {
 }
 
 export interface Comment {
-
+    _id: string;
+    author: Author;
+    text: string;
+    date: string;
+    likes: string[];
+    dislikes: string[];
+    post: Post;
 }
