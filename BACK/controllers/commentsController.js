@@ -17,6 +17,11 @@ const postComment = async (req, res) => {
 
         const savedComment = await newComment.save();
 
+        await Posts.findByIdAndUpdate(
+            post,
+            { $push: {comments: savedComment._id}}
+        );
+
         return res.status(200).json({ message: "Comment saved succesfully", savedComment });
     } catch (error) {
         return res.status(500).json({ message: error.message });
