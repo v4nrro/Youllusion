@@ -6,7 +6,6 @@ const getAllPosts = async (req, res) => {
         const posts = await Posts
             .find()
             .populate("author", "username avatar subscibers")
-            .populate("comments", "text author date likes dislikes");
 
         res.status(200).json({ message: "Posts fetched successfully", posts });
     } catch (error) {
@@ -19,7 +18,6 @@ const getFreePosts = async (req, res) => {
         const posts = await Posts
             .find({ price: 0 })
             .populate("author", "username avatar subscibers")
-            .populate("comments", "text author date likes dislikes");
     
         res.status(200).json({ message: "Posts fetched successfully", posts });
     } catch (error) {
@@ -32,7 +30,6 @@ const getPaidPosts = async (req, res) => {
         const posts = await Posts
             .find({ price: { $gt: 0 } })
             .populate("author", "username avatar subscibers")
-            .populate("comments", "text author date likes dislikes");
     
         res.status(200).json({ message: "Posts fetched successfully", posts });
     } catch (error) {
@@ -45,7 +42,14 @@ const getPostById = async (req, res) => {
         const post = await Posts
             .findById(req.params.id)
             .populate("author", "username avatar")
-            .populate("comments", "text author date likes dislikes");
+            .populate({
+                path: "comments",
+                select: "text author date likes dislikes",
+                populate: {
+                    path: "author",
+                    select: "username avatar"
+                }
+            });
 
         if (!post) {
             return res.status(404).json({ message: "Post not found" });
