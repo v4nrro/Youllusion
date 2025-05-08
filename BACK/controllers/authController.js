@@ -76,7 +76,12 @@ const login = async (req, res) => {
     }
 };
 
+const validate = () => {
+
+}
+
 module.exports = {
     register,
     login,
+    validate,
 };
