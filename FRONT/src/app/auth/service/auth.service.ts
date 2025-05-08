@@ -2,12 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, map, Observable, of } from 'rxjs';
+import { UserLogin } from '../interfaces/User';
+import { TokenResponse } from '../interfaces/responses';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class AuthServiceService {
+export class AuthService {
 
     #authUrl = 'auth';
     #http = inject(HttpClient);
@@ -46,29 +48,15 @@ export class AuthServiceService {
         return of(false);
     }
 
-    // login(userLogin: UserLogin): Observable<TokenResponse> {
-    //     return this.#http
-    //     .post<TokenResponse>(`${this.#authUrl}/login`, userLogin)
-    //     .pipe(map((tokenResponse) => {
-    //         localStorage.setItem('token', tokenResponse.accessToken);
-    //         this.#logged.set(true);
-    //         return tokenResponse;
-    //     }));
-    // }
-
-    // googleLogin(userLogin: GoogleFacebookLogin): Observable<TokenResponse>{
-    //     return this.#http
-    //     .post<TokenResponse>(`${this.#authUrl}/google`, userLogin)
-    //     .pipe(map((tokenResponse) => {
-    //         localStorage.setItem('token', tokenResponse.accessToken);
-    //         this.#logged.set(true);
-    //         return tokenResponse;
-    //     }));
-    // }
-
-    // register(userInfo: User): Observable<void> {
-    //     return this.#http.post<void>(`${this.#authUrl}/register`, userInfo);
-    // }
+    login(userLogin: UserLogin): Observable<TokenResponse> {
+        return this.#http
+        .post<TokenResponse>(`${this.#authUrl}/login`, userLogin)
+        .pipe(map((tokenResponse) => {
+            localStorage.setItem('token', tokenResponse.token);
+            this.#logged.set(true);
+            return tokenResponse;
+        }));
+    }
 
     checkToken(): Observable<void> {
         return this.#http.get<void>(`${this.#authUrl}/validate`);
