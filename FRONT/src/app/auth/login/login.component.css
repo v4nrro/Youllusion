@@ -1,0 +1,15 @@
+.app-logo {
+    width: 75px;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+a {
+    color: var(--link);
+
+    &:hover {
+        color: var(--link-hover);
+    }
+}

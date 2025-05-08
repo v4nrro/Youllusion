@@ -6,6 +6,8 @@
     --bg: #281D16;
     --hover: #594D46;
     --double-hover: #645952;
+    --link: #F9B50B;
+    --link-hover: #ca9307;
 }
 
 /* User avatar */
@@ -19,3 +21,27 @@
     color: white;
     font-weight: bold;
 }  
+
+.btn-primary {
+    background-color: var(--hover);
+    border: none;
+
+    &:hover {
+        background-color: var(--double-hover);
+    }
+}
+
+.form-control {
+    background-color: var(--bg);
+    border-color: var(--hover);
+    color: white;
+
+    &:focus {
+        background-color: var(--bg);
+        color: white;
+    }
+
+    &::placeholder {
+        color: gray;
+    }
+}
