@@ -1,33 +1,82 @@
 <div class="container">
     <div class="login-container">
         <div class="d-flex align-items-center">
-            <img src="/images/favicon.jpg" class="app-logo" alt="App Logo">
+            <img src="/images/favicon.jpg" class="app-logo" alt="App Logo" />
             <h1 class="ms-3">Sign in</h1>
         </div>
-       
+
         <div class="mt-3 ms-2">
             <form [formGroup]="loginForm" (ngSubmit)="login()" id="form-login">
                 <div class="mb-3">
-                  <label for="exampleInputEmail1"  class="form-label">Email address</label>
-                  <input type="email" formControlName="email" placeholder="Email" class="form-control w-50">
+                    <label for="exampleInputEmail1" class="form-label"
+                        >Email address</label
+                    >
+                    <input
+                        type="email"
+                        formControlName="email"
+                        placeholder="Email"
+                        class="form-control w-50"
+                        [validationClasses]="{
+                            valid: 'is-valid',
+                            invalid: 'is-invalid'
+                        }"
+                    />
+
+                    @let emailError = loginForm.get('email')?.errors;
+                    @if(emailError?.['required']){
+                    <div class="invalid-feedback">Email is required</div>
+                    } @if(emailError?.['email']){
+                    <div class="invalid-feedback">
+                        Email must have a valid format
+                    </div>
+                    }
                 </div>
                 <div class="mb-3">
-                  <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <label for="exampleInputPassword1" class="form-label"
+                        >Password</label
+                    >
 
-                  @if(passwordType() === 'password'){
-                    <i (click)="hideShowPassword()" class="ms-3 bi bi-eye-slash pointer"></i>
-                  } @else {
-                    <i (click)="hideShowPassword()" class="ms-3 bi bi-eye pointer"></i>
-                  }
+                    @if(passwordType() === 'password'){
+                    <i
+                        (click)="hideShowPassword()"
+                        class="ms-3 bi bi-eye-slash pointer"
+                    ></i>
+                    } @else {
+                    <i
+                        (click)="hideShowPassword()"
+                        class="ms-3 bi bi-eye pointer"
+                    ></i>
+                    }
 
-                  <input [type]="passwordType()" formControlName="password" placeholder="Password"  class="form-control w-50">
+                    <input
+                        [type]="passwordType()"
+                        formControlName="password"
+                        placeholder="Password"
+                        class="form-control w-50"
+                        [validationClasses]="{
+                            valid: 'is-valid',
+                            invalid: 'is-invalid'
+                        }"
+                    />
+
+                    @let passwordError = loginForm.get('password')?.errors;
+                    @if(passwordError?.['required']){
+                    <div class="invalid-feedback">Password is required</div>
+                    }
+
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                
+                <div class="d-flex align-items-center">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <div class="text-danger ms-3" id="errorInfo">{{ errorMsg() }}</div>
+                </div>
             </form>
             <div class="login-footer mt-4">
-                <p>Don't have an account? <a href="#">Create one</a></p>
+                <p>Don't have an account? <a [routerLink]="['/auth/register']">Create one</a></p>
                 <p class="small mt-3">
-                    By continuing, you agree to Youllusion's <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+                    By continuing, you agree to Youllusion's
+                    <a href="#">Terms of Service</a> and
+                    <a href="#">Privacy Policy</a>.
                 </p>
             </div>
         </div>

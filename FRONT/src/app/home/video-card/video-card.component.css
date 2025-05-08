@@ -1,6 +1,6 @@
 .yt-card {
   transition: transform 0.2s;
-  max-width: 360px;
+  max-width: 500px;
   user-select: none;
   cursor: pointer;
 }
@@ -21,11 +21,6 @@ a{
         transition: all 0.1s;
         color: white;
     }
-}
-
-img{
-    width: 330px;
-    height: 200px;
 }
 
 .video-duration {

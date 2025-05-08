@@ -6,11 +6,12 @@ import {
 } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AuthService } from '../service/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { ValidationClassesDirective } from '../../shared/directives/validation-classes.directive';
 
 @Component({
   selector: 'login',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, ValidationClassesDirective, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -20,6 +21,7 @@ export class LoginComponent {
     #authService = inject(AuthService);
     #destroyRef = inject(DestroyRef);
     #router = inject(Router);
+    errorMsg = signal('');
 
     loginForm = this.#fb.group({
         email: ['', [Validators.required, Validators.email]],
@@ -33,8 +35,13 @@ export class LoginComponent {
     login() {
         this.#authService.login({...this.loginForm.getRawValue()})
         .pipe(takeUntilDestroyed(this.#destroyRef))
-        .subscribe(() => {
-            this.#router.navigate(['/home']);
+        .subscribe({
+            next: () => {
+                this.#router.navigate(['/home']);
+            },
+            error: () => {
+                this.errorMsg.set("Wrong email or password");
+            }
         });
     }
 }

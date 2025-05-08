@@ -12,13 +12,13 @@ export class NavBarComponent {
     isMenuCollapsed = model(true);
     #authService = inject(AuthService);
     #router = inject(Router);
-
+    
     logged = computed(() => {
         return this.#authService.getLogged()
-    })
+    });
 
+    
     constructor() {
-        console.log(this.logged());
     }
 
     navItems = [
