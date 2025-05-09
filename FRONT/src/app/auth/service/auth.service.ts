@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, map, Observable, of } from 'rxjs';
-import { UserLogin, UserRegister } from '../interfaces/User';
-import { TokenResponse } from '../interfaces/responses';
+import { UserLogin } from '../interfaces/User';
+import { TokenResponse, UserResponse } from '../interfaces/responses';
 
 @Injectable({
     providedIn: 'root',
@@ -58,11 +58,16 @@ export class AuthService {
             );
     }
 
-    register(userRegister: UserRegister): Observable<TokenResponse> {
+    register(formData: FormData): Observable<TokenResponse> {
         return this.#http.post<TokenResponse>(
             `${this.#authUrl}/register`,
-            userRegister
+            formData
         );
+    }
+
+    getLoggedUser(): Observable<UserResponse> {
+        return this.#http.get<UserResponse>(`users/me`)
+        .pipe(map((resp) => { return resp }));
     }
 
     checkToken(): Observable<void> {
