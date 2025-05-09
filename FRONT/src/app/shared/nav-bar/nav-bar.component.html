@@ -55,7 +55,7 @@
                     [routerLink]="['/profile/me']"
                     class="btn btn-outline-primary ms-2 rounded-circle user-avatar"
                 >
-                    <span>A</span>
+                    <img [src]="user()!.avatar" alt="" class="rounded-circle user-avatar"/>
                 </a>
                 <a (click)="logout()" class="btn btn-primary ms-2">
                     Logout

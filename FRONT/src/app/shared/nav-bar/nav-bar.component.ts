@@ -1,6 +1,7 @@
-import { Component, computed, inject, model } from '@angular/core';
+import { Component, computed, inject, model, signal } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../auth/service/auth.service';
+import { User } from '../../auth/interfaces/User';
 
 @Component({
   selector: 'nav-bar',
@@ -12,6 +13,7 @@ export class NavBarComponent {
     isMenuCollapsed = model(true);
     #authService = inject(AuthService);
     #router = inject(Router);
+    user = signal<User | null>(null);
     
     logged = computed(() => {
         return this.#authService.getLogged()
@@ -19,6 +21,9 @@ export class NavBarComponent {
 
     
     constructor() {
+        this.#authService.getLoggedUser().subscribe((resp) => {
+            this.user.set(resp.user);
+        });
     }
 
     navItems = [
