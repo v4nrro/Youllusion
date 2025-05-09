@@ -43,3 +43,4 @@ Thumbs.db
 
 # Added by me
 /public
+*.env
