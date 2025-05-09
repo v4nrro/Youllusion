@@ -1,1 +1,152 @@
-<p>register works!</p>
+<div class="container">
+    <div class="login-container">
+        <div class="d-flex align-items-center">
+            <img src="/images/favicon.jpg" class="app-logo" alt="App Logo" />
+            <h1 class="ms-3">Register</h1>
+        </div>
+
+        <div class="mt-3 ms-2">
+            <form
+                [formGroup]="registerForm"
+                (ngSubmit)="register()"
+                id="form-login"
+            >
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label"
+                        >Email address</label
+                    >
+                    <input
+                        type="email"
+                        formControlName="email"
+                        placeholder="Email"
+                        class="form-control w-50"
+                        [validationClasses]="{
+                            valid: 'is-valid',
+                            invalid: 'is-invalid'
+                        }"
+                    />
+
+                    @let emailError = registerForm.get('email')?.errors;
+                    @if(emailError?.['required']){
+                    <div class="invalid-feedback">Email is required</div>
+                    } @if(emailError?.['email']){
+                    <div class="invalid-feedback">
+                        Email must have a valid format
+                    </div>
+                    }
+                </div>
+
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label"
+                        >Username</label
+                    >
+                    <input
+                        type="text"
+                        formControlName="username"
+                        placeholder="Username"
+                        class="form-control w-50"
+                        [validationClasses]="{
+                            valid: 'is-valid',
+                            invalid: 'is-invalid'
+                        }"
+                    />
+
+                    @let usernameError = registerForm.get('username')?.errors;
+                    @if(usernameError?.['required']){
+                    <div class="invalid-feedback">Username is required</div>
+                    }
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+
+                    @if(passwordType() === 'password'){
+                    <i
+                        (click)="hideShowPassword()"
+                        class="ms-3 bi bi-eye-slash pointer"
+                    ></i>
+                    } @else {
+                    <i
+                        (click)="hideShowPassword()"
+                        class="ms-3 bi bi-eye pointer"
+                    ></i>
+                    }
+
+                    <input
+                        [type]="passwordType()"
+                        formControlName="password"
+                        placeholder="Password"
+                        class="form-control w-50"
+                        [validationClasses]="{
+                            valid: 'is-valid',
+                            invalid: 'is-invalid'
+                        }"
+                    />
+
+                    @let passwordError = registerForm.get('password')?.errors;
+                    @if(passwordError?.['required']){
+                    <div class="invalid-feedback">Password is required</div>
+                    }
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Repeat password</label>
+
+                    <input
+                        [type]="passwordType()"
+                        formControlName="repeatPassword"
+                        placeholder="Repeat password"
+                        class="form-control w-50"
+                        [validationClasses]="{
+                            valid: 'is-valid',
+                            invalid: 'is-invalid'
+                        }"
+                    />
+
+                    @let repeatPasswordError =
+                    registerForm.get('repeatPassword')?.errors;
+                    @if(repeatPasswordError ?.['required']){
+                    <div class="invalid-feedback">
+                        Repeat password is required
+                    </div>
+                    }
+                </div>
+
+                <div class="mb-3">
+                    <label for="avatar">Avatar image</label>
+                    <input
+                        type="file"
+                        class="form-control w-50"
+                        accept="image/*"
+                        encodeBase64
+                        (change)="onFileSelected($event)"
+                        formControlName="avatar"
+                        [validationClasses]="{
+                            valid: 'is-valid',
+                            invalid: 'is-invalid'
+                        }"
+                    />
+                    <div class="invalid-feedback">An image is required.</div>
+                </div>
+
+                @if(selectedFile){
+                    <img
+                        [src]="selectedFile"
+                        alt=""
+                        class="img-thumbnail mb-3"
+                        style="width: 200px; height: auto"
+                    />
+                }
+
+                <div class="d-flex align-items-center">
+                    <button type="submit" class="btn btn-primary">
+                        Register
+                    </button>
+                    <div class="text-danger ms-3" id="errorInfo">
+                        {{ errorMsg() }}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

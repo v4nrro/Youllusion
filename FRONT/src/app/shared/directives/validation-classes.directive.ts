@@ -13,7 +13,7 @@ import { EMPTY } from 'rxjs';
 })
 export class ValidationClassesDirective {
     
-    #ngModel = inject(NgModel, { optional: true }); // Formulario de plantilla
+    #ngModel = inject(NgModel, { optional: true });
     #ngControl = inject(NgControl, { optional: true });
 
     #injector = inject(Injector);
