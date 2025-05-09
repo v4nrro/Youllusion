@@ -1,15 +1,19 @@
 .yt-card {
   transition: transform 0.2s;
-  max-width: 500px;
   user-select: none;
   cursor: pointer;
+
+  .miniature{
+    width: 400px;
+    height: 225px;
+  }
 }
 
 .yt-card:hover {
   transform: scale(1.03);
 }
 
-.thumbnail-container {
+.miniature-container {
   position: relative;
 }
 

@@ -22,7 +22,7 @@ a{
 .comments {
     border: 1px solid var(--hover);
     border-radius: 10px;
-    height: 73vh;
+    height: 80vh;
 
     h2{
         padding: 1.3rem;
