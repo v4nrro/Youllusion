@@ -70,8 +70,8 @@ const postPost = async (req, res) => {
         }
 
         const newPost = new Posts({
-            post: process.env.API_URL + '/uploads/videos/' + req.files.post[0].filename,
-            miniature: process.env.API_URL + '/uploads/images/' + req.files.miniature[0].filename,
+            post: process.env.API_URL + '/uploads/videos/' + Date.now() + req.files.post[0].filename,
+            miniature: process.env.API_URL + '/uploads/images/' + Date.now() + req.files.miniature[0].filename,
             title,
             description,
             author: req.user.userId,
@@ -105,12 +105,12 @@ const putPost = async (req, res) => {
             const updatedPost = await Posts.findByIdAndUpdate(
                 req.params.id,
                 { 
-                    post: process.env.API_URL + '/uploads/videos/' + req.files.post[0].filename,
+                    post: process.env.API_URL + '/uploads/videos/' + Date.now() + req.files.post[0].filename,
                     title,
                     description,
                     author: req.user.userId,
                     tags,
-                    miniature: process.env.API_URL + '/uploads/images/' + req.files.miniature[0].filename,
+                    miniature: process.env.API_URL + '/uploads/images/' + Date.now() + req.files.miniature[0].filename,
                     price 
                 },
                 { new: true }

@@ -80,7 +80,7 @@ const putAvatar = async (req, res) => {
 
         const updatedUser = await Users.findByIdAndUpdate(
             req.user.userId,
-            { avatar: process.env.API_URL + '/uploads/images/' + req.file.filename },
+            { avatar: process.env.API_URL + '/uploads/images/' + Date.now() + req.file.filename },
             { new: true, runValidators: true }
         );
 
