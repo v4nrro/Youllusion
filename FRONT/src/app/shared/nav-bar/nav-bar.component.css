@@ -5,12 +5,10 @@
   color:white;
 }
 
-/* Top navbar styling */
 .navbar {
   background-color: var(--bg) !important;
 }
 
-/* Search bar styling */
 .search-container {
   max-width: 640px;
   width: 100%;
@@ -37,14 +35,12 @@
   }
 }
 
-/* Content area with sidebar */
 .content-area {
   display: flex;
   margin-top: 56px;
   min-height: calc(100vh - 56px);
 }
 
-/* Sidebar styling */
 .sidebar {
   width: 240px;
   height: 100%;
@@ -86,7 +82,6 @@
   }
 }
 
-/* Main content area */
 .main-content {
   margin-left: 240px;
   flex: 1;
@@ -123,5 +118,13 @@
             color: gray;
         }
         
+    }
+}
+
+.active-link {
+    background-color: var(--hover);
+
+    &:hover {
+        background-color: var(--double-hover) !important;
     }
 }

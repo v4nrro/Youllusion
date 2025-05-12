@@ -27,10 +27,10 @@ export class NavBarComponent {
     }
 
     navItems = [
-      { route: '/home', icon: 'bi bi-house-door-fill text-white', label: 'Home' },
+      { route: '/', icon: 'bi bi-house-door text-white', label: 'Home' },
       { route: '/subscriptions', icon: 'bi bi-collection-play text-white', label: 'Subscriptions' },
       { route: '/settings/videos', icon: 'bi bi-play-btn text-white', label: 'Your videos' },
-      { route: '/liked-videos', icon: 'bi bi-hand-thumbs-up text-white', label: 'Liked videos' }
+      { route: '/liked', icon: 'bi bi-hand-thumbs-up text-white', label: 'Liked videos' }
     ];
 
     toggleSidebar() {

@@ -10,7 +10,12 @@
     --link-hover: #ca9307;
 }
 
-/* User avatar */
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
 .user-avatar {
     width: 32px;
     height: 32px;
