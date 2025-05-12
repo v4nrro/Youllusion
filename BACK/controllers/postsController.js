@@ -163,6 +163,18 @@ const deleteByAuthor = async (req, res) => {
     }
 }
 
+const getLikedPosts = async (req, res) => {
+    try {
+        const posts = await Posts
+            .find({ likes: { $in: [req.user.userId] } })
+            .populate("author", "username avatar subscibers");
+
+        res.status(200).json({ message: "Posts fetched successfully", posts: posts });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
 module.exports = {
     getAllPosts,
     getPostById,
@@ -172,4 +184,5 @@ module.exports = {
     deleteByAuthor,
     getFreePosts,
     getPaidPosts,
+    getLikedPosts,
 };

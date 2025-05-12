@@ -9,6 +9,9 @@ const {
     deleteByAdmin,
     getFreePosts,
     getPaidPosts,
+    getMyPosts,
+    getAuthorPosts,
+    getLikedPosts,
 } = require("../controllers/postsController.js");
 const { authenticate, role } = require("../middleware/auth.js");
 const { videoImageUpload } = require("../utils/multer.js");
@@ -16,6 +19,7 @@ const { videoImageUpload } = require("../utils/multer.js");
 const router = express.Router();
 
 router.get("/", getAllPosts);
+router.get("/liked", authenticate, getLikedPosts);
 router.get("/free", getFreePosts);
 router.get("/paid", getPaidPosts);
 router.get("/:id", getPostById);

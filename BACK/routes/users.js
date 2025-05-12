@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { getLoggedUser, getAllUsers, getUserById, deleteByAdmin, deleteByMe, putCredentials, putAvatar, putPassword } = require("../controllers/usersController.js");
+const { getLoggedUser, getAllUsers, getUserById, deleteByAdmin, deleteByMe, putCredentials, putAvatar, putPassword, getSubscriptions } = require("../controllers/usersController.js");
 const { authenticate, role } = require("../middleware/auth.js");
 const { imageUpload } = require('../utils/multer.js');
 
@@ -8,6 +8,7 @@ const router = express.Router();
 
 router.get('', authenticate, role(['admin']), getAllUsers);
 router.get('/me', authenticate, getLoggedUser);
+router.get('/subscriptions', authenticate, getSubscriptions);
 router.get('/:id', getUserById);
 
 router.put('/me/credentials', authenticate, putCredentials);
