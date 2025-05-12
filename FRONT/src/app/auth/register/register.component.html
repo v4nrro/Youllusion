@@ -1,4 +1,4 @@
-<div class="container">
+<div class="d-flex align-items-center justify-content-center">
     <div class="login-container">
         <div class="d-flex align-items-center">
             <img src="/images/favicon.jpg" class="app-logo" alt="App Logo" />
@@ -19,7 +19,7 @@
                         type="email"
                         formControlName="email"
                         placeholder="Email"
-                        class="form-control w-50"
+                        class="form-control"
                         [validationClasses]="{
                             valid: 'is-valid',
                             invalid: 'is-invalid'
@@ -44,7 +44,7 @@
                         type="text"
                         formControlName="username"
                         placeholder="Username"
-                        class="form-control w-50"
+                        class="form-control"
                         [validationClasses]="{
                             valid: 'is-valid',
                             invalid: 'is-invalid'
@@ -76,7 +76,7 @@
                         [type]="passwordType()"
                         formControlName="password"
                         placeholder="Password"
-                        class="form-control w-50"
+                        class="form-control"
                         [validationClasses]="{
                             valid: 'is-valid',
                             invalid: 'is-invalid'
@@ -96,7 +96,7 @@
                         [type]="passwordType()"
                         formControlName="repeatPassword"
                         placeholder="Repeat password"
-                        class="form-control w-50"
+                        class="form-control"
                         [validationClasses]="{
                             valid: 'is-valid',
                             invalid: 'is-invalid'
@@ -116,7 +116,7 @@
                     <label for="avatar">Avatar image</label>
                     <input
                         type="file"
-                        class="form-control w-50"
+                        class="form-control"
                         accept="image/*"
                         encodeBase64
                         (change)="onFileSelected($event)"
