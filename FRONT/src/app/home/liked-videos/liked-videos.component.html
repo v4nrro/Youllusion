@@ -1,0 +1,8 @@
+<!-- TODO: Give this a different format than the home page -->
+<div class="row">
+    @for (post of this.posts(); track post._id) {
+        <div class="col-12 col-md-6 col-lg-6 col-xl-4 col-xxl-3 mb-4">
+            <video-card [post]="post"></video-card>
+        </div>
+    }
+</div>
