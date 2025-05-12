@@ -21,7 +21,7 @@
                         <small class="ms-4 comment-date">{{ comment.date | date:'short' }}</small>
                 </div>
                 </div>
-                <small class="m-3 mt-5 comment-text">ddddddddddddd ddddddd dddddddddddddddddddd dddd ddddddddddd ddddddd</small>
+                <small class="m-3 mt-5 comment-text">{{comment.text}}</small>
                 <div class="comment-actions d-flex align-items-center mt-2">
                     <button (click)="likeComment(comment._id)" class="btn btn-sm btn-outline-primary">
                         Like ({{ comment.likes.length }})

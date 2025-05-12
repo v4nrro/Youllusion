@@ -6,13 +6,13 @@
             </div>
             <div class="row g-2">
                 <div class="col-auto">
-                    <a [routerLink]="['/profile/:id']">
+                    <a [routerLink]="['/profile', post().author._id]">
                         <img [src]="post().author.avatar" alt="Channel Icon" class="channel-img">
                     </a>
                 </div>
                 <div class="col">
                     <h5 class="mb-1">{{ post().title }}</h5>
-                    <a [routerLink]="['/profile/:id']" class="channel-name mb-1">{{ post().author.username }}</a>
+                    <a [routerLink]="['/profile', post().author._id]" class="channel-name mb-1">{{ post().author.username }}</a>
                     <p class="video-stats mb-0">{{ post().date | date }}</p>
                 </div>
             </div>

@@ -10,7 +10,7 @@ export const videoResolver: ResolveFn<Post> = (route, state) => {
     
     return homeService.getPost(route.paramMap.get('id')!).pipe(
       catchError(() => {
-            router.navigate(['/home']);
+            router.navigate(['/']);
             return EMPTY;
         })
     );

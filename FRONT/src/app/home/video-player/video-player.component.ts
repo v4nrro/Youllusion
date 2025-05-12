@@ -14,9 +14,6 @@ export class VideoPlayerComponent {
     post = input.required<Post>();
     
     constructor(){
-        effect(() => {
-            console.log(this.post());
-        })
     }
 
     likePost(postId: string) {

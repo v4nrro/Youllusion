@@ -37,7 +37,7 @@ export class LoginComponent {
         .pipe(takeUntilDestroyed(this.#destroyRef))
         .subscribe({
             next: () => {
-                this.#router.navigate(['/home']);
+                this.#router.navigate(['/']);
             },
             error: () => {
                 this.errorMsg.set("Wrong email or password");

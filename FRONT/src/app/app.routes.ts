@@ -16,6 +16,6 @@ export const routes: Routes = [
         loadChildren: () => import('./profile/profile.routes').then(m => m.profileRoutes),
         canActivate: [checkLoggedGuard]
     },
-    { path: '', redirectTo: '/home',  pathMatch: 'full' },
-    { path: '**', redirectTo: '/home' },
+    { path: '', redirectTo: '/',  pathMatch: 'full' },
+    { path: '**', redirectTo: '/' },
 ];
