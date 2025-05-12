@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
+import { Profile } from '../interfaces/Profile';
 
 @Component({
   selector: 'profile',
@@ -6,6 +7,7 @@ import { Component } from '@angular/core';
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
-export class ProfileComponent {
 
+export class ProfileComponent {
+    profile = input.required<Profile>();
 }

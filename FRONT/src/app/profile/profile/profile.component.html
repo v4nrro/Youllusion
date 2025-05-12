@@ -1,1 +1,39 @@
-<p>profile works!</p>
+<div class="profile-container">
+    
+    <div class="channel-header">
+        <img
+            class="avatar"
+            [src]="profile()!.avatar"
+            alt="{{ profile()!.username }}'s avatar"
+        />
+        <div class="channel-info">
+            <h1>{{ profile()!.username }}</h1>
+            <p>{{ profile()!.subscribers.length }} subscribers</p>
+            
+            @if(!profile()!.me) {
+                <button class="subscribe-button">
+                    Subscribe
+                </button>
+            }
+        </div>
+    </div>
+
+    <div class="videos-section">
+        <h2>Videos</h2>
+        <div class="videos-grid">
+            @for (post of profile()!.posts; track post._id) {
+            <div class="video-card">
+                <img
+                    class="video-thumbnail"
+                    [src]="post.miniature"
+                    alt="{{ post.title }}"
+                />
+                <div class="video-info">
+                    <h3>{{ post.title }}</h3>
+                    <p>{{ post.description }}</p>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</div>
