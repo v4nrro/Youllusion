@@ -7,7 +7,7 @@ export const routes: Routes = [
         loadChildren: () => import('./auth/auth.routes').then(m => m.authRoutes),
     },
     {
-        path: 'home',
+        path: '',
         loadChildren: () => import('./home/home.routes').then(m => m.homeRoutes),
         canActivate: [checkLoggedGuard]
     },

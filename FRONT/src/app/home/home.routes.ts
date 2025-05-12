@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { videoResolver } from './resolvers/video.resolver';
+import { loginActivateGuard } from '../shared/guards/login-activate.guard';
 
 export const homeRoutes: Routes = [
     {
@@ -15,4 +16,16 @@ export const homeRoutes: Routes = [
             post: videoResolver
         }
     },
+    {
+        path: 'subscriptions',
+        loadComponent: () => import('./subscriptions/subscriptions.component').then(m => m.SubscriptionsComponent),
+        title: 'Subscriptions Page',
+        canActivate: [loginActivateGuard],
+    },
+    {
+        path: 'liked',
+        loadComponent: () => import('./liked-videos/liked-videos.component').then(m => m.LikedVideosComponent),
+        title: 'Liked Videos Page',
+        canActivate: [loginActivateGuard],
+    }
 ];
