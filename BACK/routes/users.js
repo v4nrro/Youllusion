@@ -16,6 +16,9 @@ const { imageUpload } = require("../utils/multer.js");
 
 const router = express.Router();
 
+// TODO: Cancel subscription
+// TODO: Cancel like and dislike
+
 router.get("", authenticate, role(["admin"]), getAllUsers);
 router.get("/me", authenticate, getLoggedUser);
 router.get("/subscriptions", authenticate, getSubscriptions);

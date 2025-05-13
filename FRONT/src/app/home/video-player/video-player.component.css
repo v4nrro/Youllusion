@@ -4,6 +4,37 @@ video{
     height: auto;
 }
 
+.description{
+    padding: 1.5rem;
+    background-color: var(--hover);
+    border-radius: 10px;
+}
+
+.rating {
+    cursor: pointer;
+}
+
+.rating-option {
+    cursor: pointer;
+    
+    &:hover {
+        color: var(--link);
+    }
+}
+
+.subscribe-button {
+  background-color: var(--link);
+  color: black;
+  border: none;
+  padding: 8px 15px;
+  cursor: pointer;
+  border-radius: 20px;
+    
+    &:hover {
+        background-color: var(--link-hover);
+    }
+}
+
 .channel-img {
     width: 36px;
     height: 36px;

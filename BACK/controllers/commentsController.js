@@ -1,11 +1,30 @@
 const Comments = require('../models/Comments');
 const Posts = require('../models/Posts');
 
+const getComments = async (req, res) => {
+    try {
+        const postId = req.params.id;
+
+        const comments = await Comments.find({ post: postId })
+            .populate('author');
+
+        if (!comments) {
+            return res.status(404).json({ message: "No comments found" });
+        }
+
+        return res.status(200).json({ message: "Comments found", comments});
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+}
+
 const postComment = async (req, res) => {
     try {
-        const {author, text, post} = req.body;
+        const { text } = req.body;
+        const author = req.user.userId;
+        const post = req.params.id;
 
-        if (!post || !text || !author) {
+        if (!text || !author) {
             return res.status(400).json({ message: "Missing required fields" });
         }
 
@@ -55,4 +74,5 @@ const deleteComment = async (req, res) => {
 module.exports = {
     deleteComment,
     postComment,
+    getComments,
 };

@@ -1,4 +1,4 @@
-import { Post } from "./Post";
+import { SingleComment, Post } from "./Post";
 
 export interface PostsResponse {
     message: string;
@@ -8,4 +8,9 @@ export interface PostsResponse {
 export interface SinglePostResponse {
     message: string;
     post: Post;
+}
+
+export interface CommentsResponse {
+    message: string;
+    comments: SingleComment[];
 }

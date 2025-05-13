@@ -10,7 +10,7 @@ export interface Post {
     tags: string[];
     likes: string[];
     dislikes: string[];
-    comments: Comment[];
+    comments: SingleComment[];
 }
 
 export interface Author {
@@ -19,7 +19,7 @@ export interface Author {
     avatar: string;
 }
 
-export interface Comment {
+export interface SingleComment {
     _id: string;
     author: Author;
     text: string;

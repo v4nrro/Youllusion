@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { PostsResponse, SinglePostResponse } from '../interfaces/responses';
-import { Post } from '../interfaces/Post';
+import { CommentsResponse, PostsResponse, SinglePostResponse } from '../interfaces/responses';
+import { Post, SingleComment } from '../interfaces/Post';
 import { User } from '../../auth/interfaces/User';
-import { SubscriptionsResponse, UsersResponse } from '../../auth/interfaces/responses';
+import { SubscriptionsResponse } from '../../auth/interfaces/responses';
 
 @Injectable({
   providedIn: 'root',
@@ -44,5 +44,21 @@ export class HomeService {
                 return resp.post
             })
         )
+    }
+
+    getComments(id: string): Observable<SingleComment[]> {
+        return this.#http.get<CommentsResponse>(`comments/${id}`).pipe(
+            map((resp) => {
+                return resp.comments;
+            })
+        );
+    }
+
+    postComment(id: string, text: string): Observable<SingleComment> {
+        return this.#http.post<SingleComment>(`comments/${id}`, { text }).pipe(
+            map((resp) => {
+                return resp;
+            })
+        );
     }
 }
