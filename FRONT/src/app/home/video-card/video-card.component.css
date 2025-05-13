@@ -2,11 +2,6 @@
   transition: transform 0.2s;
   user-select: none;
   cursor: pointer;
-
-  .miniature{
-    width: 400px;
-    height: 225px;
-  }
 }
 
 .yt-card:hover {
@@ -16,10 +11,6 @@
     transition: all 0.2s;
     transform: scale(2);
   }
-}
-
-.miniature-container {
-  position: relative;
 }
 
 a{
