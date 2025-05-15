@@ -1,5 +1,7 @@
-import { Component, input } from '@angular/core';
+import { Component, computed, inject, input, model } from '@angular/core';
 import { Profile } from '../interfaces/Profile';
+import { AuthService } from '../../auth/service/auth.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'profile',
@@ -9,5 +11,30 @@ import { Profile } from '../interfaces/Profile';
 })
 
 export class ProfileComponent {
-    profile = input.required<Profile>();
+    profile = model.required<Profile>();
+    #authService = inject(AuthService);
+    #router = inject(Router);
+    #route = inject(ActivatedRoute);
+
+    logged = computed(() => {
+        return this.#authService.getLogged()
+    });
+    
+    constructor() {
+        const userId = this.#route.snapshot.paramMap.get('id');
+
+        this.#authService.getLoggedUser()
+        .subscribe((resp) => {
+            if(this.#router.url === '/profile/me' || resp.user._id === userId) {
+                this.profile.set({_id: resp.user._id,
+                    username: resp.user.username,
+                    avatar: resp.user.avatar,
+                    me: resp.user.me,
+                    posts: resp.user.posts,
+                    subscriptions: resp.user.subscriptions,
+                    subscribers: resp.user.subscribers,
+                });
+            }
+        });
+    }
 }

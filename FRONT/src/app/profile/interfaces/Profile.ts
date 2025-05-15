@@ -4,7 +4,7 @@ import { Post } from "../../home/interfaces/Post";
 export interface Profile {
     _id: string;
     username: string;
-    avatar: string;
+    avatar: string | File | null;
     me: boolean;
     posts: Post[];
     subscriptions: User[];
