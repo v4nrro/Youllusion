@@ -53,6 +53,14 @@ let postSchema = new mongoose.Schema({
         type: Number,
         default: 0,
     },
+    liked: {
+        type: Boolean,
+        default: false,
+    },
+    disliked: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 let postModel = mongoose.model("posts", postSchema);

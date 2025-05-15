@@ -11,18 +11,17 @@ const {
     putPassword,
     getSubscriptions,
 } = require("../controllers/usersController.js");
-const { authenticate, role } = require("../middleware/auth.js");
+const { authenticate, role, optionalAuthenticate } = require("../middleware/auth.js");
 const { imageUpload } = require("../utils/multer.js");
 
 const router = express.Router();
 
-// TODO: Cancel subscription
-// TODO: Cancel like and dislike
+// TODO: Add or remove subscription 
 
 router.get("", authenticate, role(["admin"]), getAllUsers);
 router.get("/me", authenticate, getLoggedUser);
 router.get("/subscriptions", authenticate, getSubscriptions);
-router.get("/:id", getUserById);
+router.get("/:id", optionalAuthenticate, getUserById);
 
 router.put("/me/credentials", authenticate, putCredentials);
 router.put("/me/avatar", authenticate, imageUpload.single("avatar"), putAvatar);

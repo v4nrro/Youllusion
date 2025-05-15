@@ -50,6 +50,10 @@ let userSchema = new mongoose.Schema({
             ref: "users",
         },
     ],
+    subscribed: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 let userModel = mongoose.model("users", userSchema);

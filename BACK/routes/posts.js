@@ -9,12 +9,11 @@ const {
     deleteByAdmin,
     getFreePosts,
     getPaidPosts,
-    getMyPosts,
-    getAuthorPosts,
     getLikedPosts,
     addOrRemoveLike,
+    addOrRemoveDislike,
 } = require("../controllers/postsController.js");
-const { authenticate, role } = require("../middleware/auth.js");
+const { authenticate, role, optionalAuthenticate } = require("../middleware/auth.js");
 const { videoImageUpload } = require("../utils/multer.js");
 
 const router = express.Router();
@@ -23,7 +22,10 @@ router.get("/", getAllPosts);
 router.get("/liked", authenticate, getLikedPosts);
 router.get("/free", getFreePosts);
 router.get("/paid", getPaidPosts);
-router.get("/:id", getPostById);
+router.get("/:id", optionalAuthenticate, getPostById);
+
+router.post("/like/:id", authenticate, addOrRemoveLike);
+router.post("/dislike/:id", authenticate, addOrRemoveDislike);
 
 router.post(
     "/",
@@ -34,8 +36,6 @@ router.post(
     ]),
     postPost
 );
-
-router.post("/like-dislike/:id", authenticate, addOrRemoveLike);
 
 router.put(
     "/:id",
