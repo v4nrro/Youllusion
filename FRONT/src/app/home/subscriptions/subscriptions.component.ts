@@ -2,10 +2,11 @@ import { Component, effect, inject, signal } from '@angular/core';
 import { HomeService } from '../services/home.service';
 import { Post } from '../interfaces/Post';
 import { User } from '../../auth/interfaces/User';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'subscriptions',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './subscriptions.component.html',
   styleUrl: './subscriptions.component.css'
 })
