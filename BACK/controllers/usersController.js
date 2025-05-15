@@ -25,6 +25,8 @@ const getUserById = async (req, res) => {
             return res.status(404).json({ message: "User not found" });
         }
 
+        // TODO: Check if the user is subscribed to the user
+
         res.status(200).json({ message: "User fetched successfully", user });
     } catch (error) {
         res.status(500).json({ message: error.message });

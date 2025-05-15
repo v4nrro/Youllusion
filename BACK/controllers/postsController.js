@@ -55,6 +55,8 @@ const getPostById = async (req, res) => {
             return res.status(404).json({ message: "Post not found" });
         }
 
+        // TODO: Check if the user is subscribed to the author liked or disliked the post
+
         res.status(200).json({ message: "Post fetched successfully", post });
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -246,4 +248,5 @@ module.exports = {
     getPaidPosts,
     getLikedPosts,
     addOrRemoveLike,
+    addOrRemoveDislike,
 };
