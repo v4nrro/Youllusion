@@ -91,6 +91,66 @@ const postPost = async (req, res) => {
     }
 };
 
+const addOrRemoveLike = async (req, res) => {
+    try {
+        const post = await Posts.findById(req.params.id);
+        if (!post) {
+            return res.status(404).json({ message: "Post not found" });
+        }
+
+        const userId = req.user.userId;
+        const isLiked = post.likes.includes(userId);
+        const isDisliked = post.dislikes.includes(userId);
+
+        if (isLiked) {
+            post.likes = post.likes.filter((id) => id.toString() !== userId);
+        }
+
+        if (isDisliked) {
+            post.dislikes = post.dislikes.filter((id) => id.toString() !== userId);
+        }
+
+        if (!isLiked) {
+            post.likes.push(userId);
+        }
+
+        await post.save();
+        res.status(200).json({ message: "Post liked successfully", post });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+const addOrRemoveDislike = async (req, res) => {
+    try {
+        const post = await Posts.findById(req.params.id);
+        if (!post) {
+            return res.status(404).json({ message: "Post not found" });
+        }
+
+        const userId = req.user.userId;
+        const isLiked = post.likes.includes(userId);
+        const isDisliked = post.dislikes.includes(userId);
+
+        if (isLiked) {
+            post.likes = post.likes.filter((id) => id.toString() !== userId);
+        }
+
+        if (isDisliked) {
+            post.dislikes = post.dislikes.filter((id) => id.toString() !== userId);
+        }
+
+        if (!isLiked) {
+            post.likes.push(userId);
+        }
+
+        await post.save();
+        res.status(200).json({ message: "Post disliked successfully", post });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
 const putPost = async (req, res) => {
     try {
         const post = await Posts.findById(req.params.id);
@@ -185,4 +245,5 @@ module.exports = {
     getFreePosts,
     getPaidPosts,
     getLikedPosts,
+    addOrRemoveLike,
 };

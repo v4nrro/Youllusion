@@ -12,6 +12,7 @@ const {
     getMyPosts,
     getAuthorPosts,
     getLikedPosts,
+    addOrRemoveLike,
 } = require("../controllers/postsController.js");
 const { authenticate, role } = require("../middleware/auth.js");
 const { videoImageUpload } = require("../utils/multer.js");
@@ -33,6 +34,8 @@ router.post(
     ]),
     postPost
 );
+
+router.post("/like-dislike/:id", authenticate, addOrRemoveLike);
 
 router.put(
     "/:id",
