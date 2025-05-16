@@ -16,4 +16,5 @@ export interface User {
     posts: Post[];
     subscriptions: User[];
     subscribers: User[];
+    subscribed: boolean;
 }
