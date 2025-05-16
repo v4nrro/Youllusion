@@ -13,7 +13,7 @@ import { HomeService } from '../services/home.service';
   styleUrl: './video-player.component.css'
 })
 export class VideoPlayerComponent {
-    post = model.required<Post>();
+    post = input.required<Post>();
     postLikes = signal<number>(0);
     postDislikes = signal<number>(0);
     postLiked = signal<boolean>(false);

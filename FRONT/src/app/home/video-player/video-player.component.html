@@ -20,21 +20,13 @@
             
             <div class="rating border border-1 rounded-pill p-2">
                 <span class="rating-option m-2">
-                    @if(this.postLiked()) {
-                        <i (click)="likePost(post()._id)" class="bi bi-hand-thumbs-up-fill"></i> {{ this.postLikes() }}
-                    } @else {
-                        <i (click)="likePost(post()._id)" class="bi bi-hand-thumbs-up"></i> {{ this.postLikes() }}
-                    }
+                    <i (click)="likePost(post()._id)" class="bi {{this.postLiked() ? 'bi-hand-thumbs-up-fill' : 'bi-hand-thumbs-up'}}"></i> {{ this.postLikes() }}
                 </span>
 
                 <span class="mx-2 border-start border-2" style="height: 1.5rem;"></span>
 
                 <span class="rating-option m-2">
-                    @if(this.postDisliked()) {
-                        <i (click)="dislikePost(post()._id)" class="bi bi-hand-thumbs-down-fill"></i> {{ this.postDislikes() }}
-                    } @else {
-                        <i (click)="dislikePost(post()._id)" class="bi bi-hand-thumbs-down"></i> {{ this.postDislikes() }}
-                    }
+                    <i (click)="dislikePost(post()._id)" class="bi {{ this.postDisliked() ? 'bi-hand-thumbs-down-fill' : 'bi-hand-thumbs-down' }}"></i> {{ this.postDislikes() }}
                 </span>
             </div>
         </div>
