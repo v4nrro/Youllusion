@@ -41,13 +41,13 @@ const getPostById = async (req, res) => {
     try {
         const post = await Posts
             .findById(req.params.id)
-            .populate("author", "username avatar")
+            .populate("author", "username avatar subscribers subscribed")
             .populate({
                 path: "comments",
                 select: "text author date likes dislikes",
                 populate: {
                     path: "author",
-                    select: "username avatar"
+                    select: "username avatar",
                 }
             });
 
@@ -55,7 +55,18 @@ const getPostById = async (req, res) => {
             return res.status(404).json({ message: "Post not found" });
         }
 
-        // TODO: Check if the user is subscribed to the author liked or disliked the post
+        if(req.user) {
+            const author = await Users.findById(post.author);
+
+            isSubscribed = author.subscribers.includes(req.user.userId);
+            isLiked = post.likes.includes(req.user.userId);
+            isDisliked = post.dislikes.includes(req.user.userId);
+
+            post.liked = isLiked;
+            post.disliked = isDisliked;
+
+            author.subscribed = isSubscribed;
+        }
 
         res.status(200).json({ message: "Post fetched successfully", post });
     } catch (error) {
@@ -96,6 +107,7 @@ const postPost = async (req, res) => {
 const addOrRemoveLike = async (req, res) => {
     try {
         const post = await Posts.findById(req.params.id);
+
         if (!post) {
             return res.status(404).json({ message: "Post not found" });
         }
@@ -117,6 +129,7 @@ const addOrRemoveLike = async (req, res) => {
         }
 
         await post.save();
+
         res.status(200).json({ message: "Post liked successfully", post });
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -142,11 +155,12 @@ const addOrRemoveDislike = async (req, res) => {
             post.dislikes = post.dislikes.filter((id) => id.toString() !== userId);
         }
 
-        if (!isLiked) {
-            post.likes.push(userId);
+        if (!isDisliked) {
+            post.dislikes.push(userId);
         }
 
         await post.save();
+
         res.status(200).json({ message: "Post disliked successfully", post });
     } catch (error) {
         res.status(500).json({ message: error.message });

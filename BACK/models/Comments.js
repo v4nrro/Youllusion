@@ -31,6 +31,14 @@ let commentSchema = new mongoose.Schema({
         ref: 'posts',
         required: true,
     },
+    liked : {
+        type: Boolean,
+        default: false,
+    },
+    disliked : {
+        type: Boolean,
+        default: false,
+    },
 })
 
 let commentModel = mongoose.model('comments', commentSchema);

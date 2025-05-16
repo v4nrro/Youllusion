@@ -20,6 +20,69 @@ const getComments = async (req, res) => {
     }
 }
 
+const addOrRemoveLike = async (req, res) => {
+    try {
+        const comment = await Comments.findById(req.params.id);
+
+        if (!comment) {
+            return res.status(404).json({ message: "Comment not found" });
+        }
+
+        const userId = req.user.userId;
+        const isLiked = comment.likes.includes(userId);
+        const isDisliked = comment.dislikes.includes(userId);
+
+        if (isLiked) {
+            comment.likes = comment.likes.filter((id) => id.toString() !== userId);
+        }
+
+        if (isDisliked) {
+            comment.dislikes = comment.dislikes.filter((id) => id.toString() !== userId);
+        }
+
+        if (!isLiked) {
+            comment.likes.push(userId);
+        }
+
+        await comment.save();
+
+        res.status(200).json({ message: "Comment liked successfully", comment });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+const addOrRemoveDislike = async (req, res) => {
+    try {
+        const comment = await Comments.findById(req.params.id);
+        if (!comment) {
+            return res.status(404).json({ message: "Comment not found" });
+        }
+
+        const userId = req.user.userId;
+        const isLiked = comment.likes.includes(userId);
+        const isDisliked = comment.dislikes.includes(userId);
+
+        if (isLiked) {
+            comment.likes = comment.likes.filter((id) => id.toString() !== userId);
+        }
+
+        if (isDisliked) {
+            comment.dislikes = comment.dislikes.filter((id) => id.toString() !== userId);
+        }
+
+        if (!isDisliked) {
+            comment.dislikes.push(userId);
+        }
+
+        await comment.save();
+
+        res.status(200).json({ message: "Comment disliked successfully", comment });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
 const postComment = async (req, res) => {
     try {
         const { text } = req.body;
@@ -77,4 +140,6 @@ module.exports = {
     deleteComment,
     postComment,
     getComments,
+    addOrRemoveLike,
+    addOrRemoveDislike,
 };
