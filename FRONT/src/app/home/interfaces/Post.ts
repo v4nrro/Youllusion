@@ -10,6 +10,8 @@ export interface Post {
     tags: string[];
     likes: string[];
     dislikes: string[];
+    liked: boolean;
+    disliked: boolean;
     comments: SingleComment[];
 }
 

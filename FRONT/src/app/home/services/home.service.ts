@@ -46,10 +46,42 @@ export class HomeService {
         )
     }
 
+    likePost(id: string): Observable<Post> {
+        return this.#http.post<Post>(`${this.#homeUrl}/like/${id}`, {}).pipe(
+            map((resp) => {
+                return resp;
+            })
+        );
+    }
+
+    dislikePost(id: string): Observable<Post> {
+        return this.#http.post<Post>(`${this.#homeUrl}/dislike/${id}`, {}).pipe(
+            map((resp) => {
+                return resp;
+            })
+        );
+    }
+
     getComments(id: string): Observable<SingleComment[]> {
         return this.#http.get<CommentsResponse>(`comments/${id}`).pipe(
             map((resp) => {
                 return resp.comments;
+            })
+        );
+    }
+
+    likeComment(id: string): Observable<Post> {
+        return this.#http.post<Post>(`comments/like/${id}`, {}).pipe(
+            map((resp) => {
+                return resp;
+            })
+        );
+    }
+
+    dislikeComment(id: string): Observable<Post> {
+        return this.#http.post<Post>(`comments/dislike/${id}`, {}).pipe(
+            map((resp) => {
+                return resp;
             })
         );
     }
