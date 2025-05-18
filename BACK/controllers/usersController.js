@@ -61,6 +61,36 @@ const getLoggedUser = async (req, res) => {
     }
 }
 
+const addOrRemoveSubscription = async (req, res) => {
+    try {
+        const user = await Users.findById(req.user.userId);
+        const targetUser = await Users.findById(req.params.id);
+
+        if(!user || !targetUser) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        if(req.user.userId == req.params.id) {
+            return res.status(400).json({ message: "You cannot subscribe to yourself" });
+        }
+
+        if(user.subscriptions.includes(targetUser._id)) {
+            user.subscriptions.pull(targetUser._id);
+            targetUser.subscribers.pull(user._id);
+        } else {
+            user.subscriptions.push(targetUser._id);
+            targetUser.subscribers.push(user._id);
+        }
+
+        await user.save();
+        await targetUser.save();
+
+        res.status(200).json({ message: "Subscription updated successfully", targetUser });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
 const putCredentials = async (req, res) => {
     try {
         const { username, email } = req.body;
@@ -186,4 +216,5 @@ module.exports = {
     deleteByMe,
     deleteByAdmin,
     getSubscriptions,
+    addOrRemoveSubscription,
 };
