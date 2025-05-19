@@ -5,6 +5,8 @@ import { DatePipe } from '@angular/common';
 import { HomePageComponent } from "../home-page/home-page.component";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeService } from '../services/home.service';
+import { ProfileService } from '../../profile/service/profile.service';
+import { Profile } from '../../profile/interfaces/Profile';
 
 @Component({
   selector: 'video-player',
@@ -18,10 +20,14 @@ export class VideoPlayerComponent {
     postDislikes = signal<number>(0);
     postLiked = signal<boolean>(false);
     postDisliked = signal<boolean>(false);
-
-    #homeService = inject(HomeService);
+    author = signal<Profile | null>(null);
+    subscribed = signal<boolean>(false);
     commentText = '';
     comments = signal<SingleComment[]>([]);
+    userMe = signal<boolean>(false);
+
+    #homeService = inject(HomeService);
+    #profileService = inject(ProfileService);
 
     constructor(){
         effect(() => {
@@ -32,6 +38,14 @@ export class VideoPlayerComponent {
             this.postDislikes.set(this.post().dislikes.length);
             this.postLiked.set(this.post().liked);
             this.postDisliked.set(this.post().disliked);
+
+            this.#profileService.getProfile(this.post().author._id)
+            .subscribe((resp) => {
+                this.author.set(resp);
+                this.subscribed.set(resp.subscribed);
+                this.userMe.set(resp.me);
+                console.log(this.subscribed());
+            });
         })
     }
 
@@ -72,6 +86,16 @@ export class VideoPlayerComponent {
                 this.postDisliked.set(false);
                 this.postDislikes.set(this.postDislikes() - 1);
             }
+        });
+    }
+
+    toggleSubscribe() {
+        this.#profileService.addOrRemoveSubscription(this.post().author._id)
+        .subscribe((resp) => {
+            this.author.set(resp);
+            this.subscribed.set(resp.subscribed);
+            console.log(resp);
+            console.log(this.subscribed());
         });
     }
 

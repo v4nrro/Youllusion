@@ -35,6 +35,19 @@ video{
     }
 }
 
+.unsubscribe-button {
+  background-color: var(--link-hover);
+  color: black;
+  border: none;
+  padding: 8px 15px;
+  cursor: pointer;
+  border-radius: 20px;
+    
+    &:hover {
+        background-color: var(--link);
+    }
+}
+
 .channel-img {
     width: 36px;
     height: 36px;

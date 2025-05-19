@@ -15,7 +15,14 @@
     
                 </a>
 
-                <button class="ms-5 subscribe-button">Subscribe</button>
+                @if(!this.userMe()) {
+                    @if(this.subscribed()) {
+                        <button (click)="toggleSubscribe()" class="ms-5 unsubscribe-button">Unsubscribe</button>
+                    } @else {
+                        <button (click)="toggleSubscribe()" class="ms-5 subscribe-button">Subscribe</button>
+                    } 
+                }
+                
             </div>
             
             <div class="rating border border-1 rounded-pill p-2">

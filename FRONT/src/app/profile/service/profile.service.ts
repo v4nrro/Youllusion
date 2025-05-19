@@ -18,4 +18,12 @@ export class ProfileService {
             })
         )
     }
+
+    addOrRemoveSubscription(id: string): Observable<Profile> {
+        return this.#http.post<ProfileResponse>(`${this.#profileUrl}/subscribe/${id}`, {}).pipe(
+            map((resp) => {
+                return resp.user;
+            })
+        );
+    }
 }
