@@ -2,6 +2,7 @@ import { Component, computed, effect, inject, input, model, signal } from '@angu
 import { Profile } from '../interfaces/Profile';
 import { AuthService } from '../../auth/service/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ProfileService } from '../service/profile.service';
 
 @Component({
   selector: 'profile',
@@ -13,7 +14,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ProfileComponent {
     profile = model.required<Profile>();
     subscribed = signal<boolean>(false);
+    subscribers = signal<number | null>(null);
+
     #authService = inject(AuthService);
+    #profileService = inject(ProfileService);
     #router = inject(Router);
     #route = inject(ActivatedRoute);
 
@@ -42,7 +46,23 @@ export class ProfileComponent {
         effect(() => {
             if(this.profile()) {
                 this.subscribed.set(this.profile().subscribed);
+                this.subscribers.set(this.profile().subscribers.length);
             }
         })
+    }
+    
+    toggleSubscribe() {
+        this.#profileService.addOrRemoveSubscription(this.profile()._id)
+        .subscribe((resp) => {
+
+            if(this.subscribed()) {
+                this.subscribers.set(this.subscribers()! - 1);
+            }
+            else {
+                this.subscribers.set(this.subscribers()! + 1);
+            }
+
+            this.subscribed.set(resp.subscribed);
+        });
     }
 }

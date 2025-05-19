@@ -9,12 +9,14 @@
             />
             <div class="channel-info">
                 <h1>{{ profile()!.username }}</h1>
-                <p>{{ profile()!.subscribers.length }} Subscribers</p>
+                <p>{{ subscribers() }} Subscribers</p>
                 
                 @if(!profile()!.me) {
-                    <button class="subscribe-button">
-                        Subscribe
-                    </button>
+                     @if(this.subscribed()) {
+                        <button (click)="toggleSubscribe()" class="unsubscribe-button">Unsubscribe</button>
+                    } @else {
+                        <button (click)="toggleSubscribe()" class="subscribe-button">Subscribe</button>
+                    } 
                 }
             </div>
         </div>
