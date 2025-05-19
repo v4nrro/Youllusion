@@ -60,17 +60,10 @@
                 <div class="mb-3">
                     <label class="form-label">Password</label>
 
-                    @if(passwordType() === 'password'){
                     <i
                         (click)="hideShowPassword()"
-                        class="ms-3 bi bi-eye-slash pointer"
+                        class="ms-3 bi {{ passwordType() === 'password' ? 'bi-eye-slash' : 'bi-eye' }} pointer"
                     ></i>
-                    } @else {
-                    <i
-                        (click)="hideShowPassword()"
-                        class="ms-3 bi bi-eye pointer"
-                    ></i>
-                    }
 
                     <input
                         [type]="passwordType()"

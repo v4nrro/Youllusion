@@ -8,6 +8,4 @@ export const videoRoutes: Routes = [
         title: 'Profile Page',
         canActivate: [loginActivateGuard],
     },
-    // { path: '', redirectTo: '/auth/login',  pathMatch: 'full' },
-    // { path: '**', redirectTo: '/auth/login' },
 ];

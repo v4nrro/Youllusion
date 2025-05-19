@@ -12,10 +12,4 @@ export const authRoutes: Routes = [
         loadComponent: () => import('./register/register.component').then(m => m.RegisterComponent),
         canActivate: [logoutActivateGuard],
     },
-    // {
-    //     path: 'profile',
-    //     loadChildren: () => import('./profile/profile.routes').then(m => m.profileRoutes),
-    // },
-    // { path: '', redirectTo: '/auth/login',  pathMatch: 'full' },
-    // { path: '**', redirectTo: '/auth/login' },
 ];

@@ -94,8 +94,6 @@ export class VideoPlayerComponent {
         .subscribe((resp) => {
             this.author.set(resp);
             this.subscribed.set(resp.subscribed);
-            console.log(resp);
-            console.log(this.subscribed());
         });
     }
 
