@@ -1,5 +1,5 @@
-import { Component, input } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, inject, input } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { Post } from '../../home/interfaces/Post';
 import { DatePipe } from '@angular/common';
 
@@ -11,4 +11,14 @@ import { DatePipe } from '@angular/common';
 })
 export class VideoCardComponent {
     post = input.required<Post>();
+
+    #router = inject(Router);
+
+    goToWatch(id: string) {
+        this.#router.navigate(['/watch', id])
+    }
+
+    goToAuthor(id: string) {
+        this.#router.navigate(['/profile', id])
+    }
 }

@@ -72,22 +72,23 @@
         <div class="sidebar" [class]="{ collapsed: isMenuCollapsed() }">
             <div class="sidebar-menu">
                 @for (item of navItems; track $index) {
-                <div class="sidebar-item">
-                    <a
-                        [routerLink]="[item.route]"
-                        routerLinkActive="active-link"
-                        [routerLinkActiveOptions]="{ exact: true }"
-                        class="sidebar-link d-flex flex-column"
-                    >
-                        <div class="d-flex align-items-center">
-                            <i [class]="item.icon"></i>
-                            <span class="text-white ms-3 nowrap">{{
-                                item.label
-                            }}</span>
-                        </div>
-                    </a>
-                </div>
+                    <div class="sidebar-item">
+                        <a
+                            [routerLink]="[item.route]"
+                            routerLinkActive="active-link"
+                            [routerLinkActiveOptions]="{ exact: true }"
+                            class="sidebar-link d-flex flex-column"
+                        >
+                            <div class="d-flex align-items-center">
+                                <i [class]="item.icon"></i>
+                                <span class="text-white ms-3 nowrap">{{
+                                    item.label
+                                }}</span>
+                            </div>
+                        </a>
+                    </div>
                 }
+                <!-- TODO: Add admin role routes here -->
             </div>
         </div>
 

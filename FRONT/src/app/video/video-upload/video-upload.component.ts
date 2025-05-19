@@ -50,7 +50,8 @@ export class VideoUploadComponent {
                 };
                 reader.readAsDataURL(file);
             }
-        } else {
+        } 
+        else {
             if (type === 'video') {
                 this.selectedVideo = null;
             } 

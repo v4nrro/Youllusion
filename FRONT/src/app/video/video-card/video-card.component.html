@@ -1,12 +1,12 @@
 <div class="container mt-5">
     <div class="yt-card">
-        <a [routerLink]="['/watch', post()._id]">
+        <a (click)="goToWatch(post()._id)">
             <div class="mb-2">
                 <img [src]="post().miniature" alt="video" class="img-fluid rounded">
             </div>
             <div class="row g-2">
                 <div class="col-auto">
-                    <a [routerLink]="['/profile', post().author._id]">
+                    <a (click)="goToAuthor(post().author._id); $event.stopPropagation()">
                         <img [src]="post().author.avatar" alt="Channel Icon" class="channel-img">
                     </a>
                 </div>
@@ -20,7 +20,7 @@
                         }
                     </div>
 
-                    <a [routerLink]="['/profile', post().author._id]" class="channel-name mb-1">{{ post().author.username }}</a>
+                    <a (click)="goToAuthor(post().author._id); $event.stopPropagation()" class="channel-name mb-1">{{ post().author.username }}</a>
                     <p class="video-stats mb-0">{{ post().date | date }}</p>
                 </div>
             </div>
