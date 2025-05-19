@@ -1,6 +1,5 @@
 import { Component, effect, inject, signal } from '@angular/core';
-import { HomeService } from '../services/home.service';
-import { Post } from '../interfaces/Post';
+import { HomeService } from '../../home/services/home.service';
 import { User } from '../../auth/interfaces/User';
 import { RouterLink } from '@angular/router';
 

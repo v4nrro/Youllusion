@@ -1,5 +1,5 @@
 import { Component, effect, inject, signal } from '@angular/core';
-import { VideoCardComponent } from "../video-card/video-card.component";
+import { VideoCardComponent } from "../../video/video-card/video-card.component";
 import { HomeService } from '../services/home.service';
 import { Post } from '../interfaces/Post';
 

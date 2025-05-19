@@ -1,7 +1,7 @@
 import { Component, effect, inject, signal } from '@angular/core';
-import { HomeService } from '../services/home.service';
-import { Post } from '../interfaces/Post';
-import { VideoCardComponent } from "../video-card/video-card.component";
+import { HomeService } from '../../home/services/home.service';
+import { Post } from '../../home/interfaces/Post';
+import { VideoCardComponent } from '../../video/video-card/video-card.component';
 
 @Component({
   selector: 'liked-videos',

@@ -1,10 +1,10 @@
 import { Component, effect, inject, input, model, signal } from '@angular/core';
-import { Post, SingleComment } from '../interfaces/Post';
+import { Post, SingleComment } from '../../home/interfaces/Post';
 import { RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import { HomePageComponent } from "../home-page/home-page.component";
+import { HomePageComponent } from "../../home/home-page/home-page.component";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HomeService } from '../services/home.service';
+import { HomeService } from '../../home/services/home.service';
 import { ProfileService } from '../../profile/service/profile.service';
 import { Profile } from '../../profile/interfaces/Profile';
 
