@@ -23,6 +23,12 @@ export const profileRoutes: Routes = [
         canActivate: [loginActivateGuard],
     },
     {
+        path: 'videos',
+        loadComponent: () => import('../profile/my-videos/my-videos.component').then(m => m.MyVideosComponent),
+        title: 'My Videos Page',
+        canActivate: [loginActivateGuard],
+    },
+    {
         path: ':id',
         loadComponent: () => import('./profile/profile.component').then(m => m.ProfileComponent),
         title: 'Profile Page',
@@ -30,6 +36,4 @@ export const profileRoutes: Routes = [
             profile: profileResolver
         },
     },
-    // { path: '', redirectTo: '/auth/login',  pathMatch: 'full' },
-    // { path: '**', redirectTo: '/auth/login' },
 ];

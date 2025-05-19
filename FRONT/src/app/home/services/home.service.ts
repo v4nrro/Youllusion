@@ -22,6 +22,14 @@ export class HomeService {
         );
     }
 
+    postPost(formData: FormData): Observable<Post> {
+        return this.#http.post<SinglePostResponse>(`${this.#homeUrl}`, formData).pipe(
+            map((resp) => {
+                return resp.post
+            })
+        )
+    }
+
     getLikedPosts(): Observable<Post[]> {
         return this.#http.get<PostsResponse>(`${this.#homeUrl}/liked`).pipe(
             map((resp) => {
