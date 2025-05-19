@@ -47,7 +47,10 @@ const getLoggedUser = async (req, res) => {
     try {
         const user = await Users
         .findById(req.user.userId)
-        .populate("posts")
+        .populate({
+            path: "posts",
+            populate: { path: "author" }
+        })
         .populate("subscribers");
 
         if(!user) {

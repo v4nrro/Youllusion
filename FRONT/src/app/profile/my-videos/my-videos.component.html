@@ -1,1 +1,43 @@
-<p>my-videos works!</p>
+@if(loggedUser()){
+    <h2>My videos</h2>
+    @if(loggedUser()!.posts.length > 0){
+        @for(post of loggedUser()!.posts; track post._id){
+            <a (click)="navigate()">
+                <div class="mb-2 w-100">
+                    <div class="card shadow border-0 w-100">
+                        <div class="row g-0 align-items-center">
+                            <div class="col-auto">
+                                <img [src]="post.miniature" class="img-fluid rounded-start">
+                            </div>
+                            
+                            <div class="col ps-2">
+                                <div class="card-body py-2 px-2 d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <h6 class="card-title" style="width: 300px;">{{ post.title }}</h6>
+                                        @if(post.price <= 0) {
+                                            <span class="badge bg-warning text-dark small">Free</span>
+                                        }
+                                        @else {
+                                            <span class="badge bg-success small">${{ post.price }}</span>
+                                        }
+                                        <div><small class="">{{ post.date | date }}</small></div>
+                                    </div>
+                                    <div class="col d-flex justify-content-center edit-title">
+                                        <h1 class="edit-title">Edit</h1>
+                                    </div>
+                                    <div class="ms-auto d-flex gap-2">
+                                        <button  (click)="deleteVideo(post._id); $event.stopPropagation()" class="btn btn-sm btn-outline-danger py-0 px-2">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </a>
+        }
+    }
+    @else {
+        <p>No tiene posts</p>
+    }
+}

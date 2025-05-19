@@ -1,0 +1,35 @@
+a{
+    text-decoration: none;
+}
+
+.card {
+    background-color: var(--bg);
+    color: white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    
+    img{
+        height: 100px;
+    }
+    
+    .edit-title {
+        opacity: 0;
+        color: var(--double-hover);
+        visibility: hidden;
+        transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s ease;
+        font-size: 4rem;
+        letter-spacing: 5px;
+    }
+ 
+
+    &:hover {
+        transform: scale(1.01);
+        box-shadow: 0 2px 20px var(--hover) !important;
+
+         .edit-title {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+
+}

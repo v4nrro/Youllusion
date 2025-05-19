@@ -21,6 +21,14 @@ export class HomeService {
             })
         );
     }
+    
+    getMyPosts(): Observable<Post[]> {
+        return this.#http.get<PostsResponse>(`${this.#homeUrl}`).pipe(
+            map((resp) => {
+                return resp.posts;
+            })
+        );
+    }
 
     postPost(formData: FormData): Observable<Post> {
         return this.#http.post<SinglePostResponse>(`${this.#homeUrl}`, formData).pipe(
