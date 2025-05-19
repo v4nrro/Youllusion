@@ -17,7 +17,7 @@ const getUserById = async (req, res) => {
     try {
         const user = await Users
             .findById(req.params.id)
-            .select("username posts subscribers avatar")
+            .select("username posts subscribers avatar me")
             .populate("posts")
             .populate("subscribers");
 
@@ -30,9 +30,10 @@ const getUserById = async (req, res) => {
                 user.me = true;
             } 
             else {
-                isSubscribed = user.subscribers.includes(req.user.userId);
+                subsIds = user.subscribers.map(sub => sub._id.toString());
 
-                user.subscribed = isSubscribed;
+                user.subscribed = subsIds.includes(req.user.userId);
+                console.log(req.user.userId);
             }
         }
 
@@ -85,7 +86,9 @@ const addOrRemoveSubscription = async (req, res) => {
         await user.save();
         await targetUser.save();
 
-        res.status(200).json({ message: "Subscription updated successfully", targetUser });
+        targetUser.subscribed = user.subscriptions.includes(targetUser._id);
+
+        res.status(200).json({ message: "Subscription updated successfully", user: targetUser });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
