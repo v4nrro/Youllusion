@@ -39,6 +39,19 @@
     }
 }
 
+.unsubscribe-button {
+  background-color: var(--link-hover);
+  color: black;
+  border: none;
+  padding: 8px 15px;
+  cursor: pointer;
+  border-radius: 20px;
+    
+    &:hover {
+        background-color: var(--link);
+    }
+}
+
 .videos-section h2 {
   margin-bottom: 10px;
 }
