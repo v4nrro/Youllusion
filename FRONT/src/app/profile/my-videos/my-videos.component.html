@@ -1,8 +1,8 @@
 @if(loggedUser()){
     <h2>My videos</h2>
     @if(loggedUser()!.posts.length > 0){
-        @for(post of loggedUser()!.posts; track post._id){
-            <a (click)="navigate()">
+        @for(post of posts(); track post._id){
+            <a (click)="goToEdit(post._id)">
                 <div class="mb-2 w-100">
                     <div class="card shadow border-0 w-100">
                         <div class="row g-0 align-items-center">

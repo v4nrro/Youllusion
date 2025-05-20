@@ -14,7 +14,7 @@ const {
     addOrRemoveDislike,
 } = require("../controllers/postsController.js");
 const { authenticate, role, optionalAuthenticate } = require("../middleware/auth.js");
-const { videoImageUpload } = require("../utils/multer.js");
+const { videoImageUpload, imageUpload } = require("../utils/multer.js");
 
 const router = express.Router();
 
@@ -37,17 +37,9 @@ router.post(
     postPost
 );
 
-router.put(
-    "/:id",
-    authenticate,
-    videoImageUpload.fields([
-        { name: "post", maxCount: 1 },
-        { name: "miniature", maxCount: 1 },
-    ]),
-    putPost
-);
+router.put("/:id", authenticate, imageUpload.single('miniature'), putPost);
 
-router.delete("/author-delete/:id", authenticate, deleteByAuthor);
+router.delete("/post-delete/:id", authenticate, deleteByAuthor);
 router.delete("/:id",authenticate, role(['admin']), deleteByAdmin);
 
 module.exports = router;

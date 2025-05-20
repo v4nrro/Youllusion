@@ -173,24 +173,28 @@ const putPost = async (req, res) => {
 
         const { title, description, tags, price } = req.body;
 
-        if (!req.files.post || !title || !description || !req.files.miniature) {
+        if ( !title || !description ) {
             return res.status(400).json({ message: "Missing required fields" });
         }
 
         if(post.author == req.user.userId){
+            const updatedFields = {
+                title,
+                description,
+                author: req.user.userId,
+                tags,
+                price,
+            };
+
+            if (req.file) {
+                updatedFields.miniature = process.env.API_URL + '/uploads/images/' + req.file.filename;
+            }
+
             const updatedPost = await Posts.findByIdAndUpdate(
                 req.params.id,
-                { 
-                    post: process.env.API_URL + '/uploads/videos/' + Date.now() + req.files.post[0].filename,
-                    title,
-                    description,
-                    author: req.user.userId,
-                    tags,
-                    miniature: process.env.API_URL + '/uploads/images/' + Date.now() + req.files.miniature[0].filename,
-                    price 
-                },
+                updatedFields,
                 { new: true }
-            );
+            ); 
 
             if (!updatedPost) {
                 return res.status(404).json({ message: "Post not found" });

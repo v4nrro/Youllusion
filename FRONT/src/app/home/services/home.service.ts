@@ -38,6 +38,18 @@ export class HomeService {
         )
     }
 
+    putPost(formData: FormData, id: string): Observable<Post> {
+        return this.#http.put<SinglePostResponse>(`${this.#homeUrl}/${id}`, formData).pipe(
+            map((resp) => {
+                return resp.post
+            })
+        )
+    }
+
+    deletePost(id: string): Observable<void> {
+        return this.#http.delete<void>(`${this.#homeUrl}/post-delete/${id}`);
+    }
+
     getLikedPosts(): Observable<Post[]> {
         return this.#http.get<PostsResponse>(`${this.#homeUrl}/liked`).pipe(
             map((resp) => {

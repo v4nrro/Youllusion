@@ -1,0 +1,114 @@
+<div class="d-flex align-items-center justify-content-center">
+    <div class="login-container">
+        <div class="d-flex align-items-center">
+            <img src="/images/favicon.jpg" class="app-logo" alt="App Logo" />
+            <h1 class="ms-3">Edit video</h1>
+        </div>
+
+        <div class="mt-3 ms-2">
+            <form
+                [formGroup]="videoForm"
+                (ngSubmit)="edit()"
+                id="form-login"
+            >
+                <div class="mb-3">
+                    <label class="form-label"
+                        >Title</label
+                    >
+                    <input
+                        type="text"
+                        formControlName="title"
+                        placeholder="Title"
+                        class="form-control"
+                        [validationClasses]="{
+                            valid: 'is-valid',
+                            invalid: 'is-invalid'
+                        }"
+                    />
+
+                    @let titleError = videoForm.get('title')?.errors;
+                    @if(titleError?.['required']){
+                    <div class="invalid-feedback">Title is required</div>
+                    }
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Description</label>
+
+                    <input
+                        type="text"
+                        formControlName="description"
+                        placeholder="Video description..."
+                        class="form-control"
+                        [validationClasses]="{
+                            valid: 'is-valid',
+                            invalid: 'is-invalid'
+                        }"
+                    />
+
+                    @let descriptionError = videoForm.get('description')?.errors;
+                    @if(descriptionError?.['required']){
+                    <div class="invalid-feedback">Description is required</div>
+                    }
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Price</label>
+
+                    <input
+                        type="number"
+                        formControlName="price"
+                        placeholder="€"
+                        class="form-control"
+                        [validationClasses]="{
+                            valid: 'is-valid',
+                            invalid: 'is-invalid'
+                        }"
+                    />
+
+                    @let priceError =
+                    videoForm.get('price')?.errors;
+                    @if(priceError ?.['min']){
+                    <div class="invalid-feedback">
+                        Price can't be less than 0 
+                    </div>
+                    }
+                </div>
+
+                <div class="mb-3">
+                    <label>Miniature</label>
+                    <input
+                        type="file"
+                        class="form-control"
+                        accept="image/*"
+                        encodeBase64
+                        (change)="onFileSelected($event)"
+                        formControlName="miniature"
+                        [validationClasses]="{
+                            valid: 'is-valid',
+                            invalid: 'is-invalid'
+                        }"
+                    />
+                    <div class="invalid-feedback">The miniature is required</div>
+                </div>
+
+                @if(imagePreview()){
+                    <img
+                        [src]="imagePreview()"
+                        alt=""
+                        class="img-thumbnail mb-3"
+                    />
+                }
+
+                <div class="d-flex align-items-center justify-content-between">
+                    <button (click)="deletePost()" type="submit" class="btn btn-danger">
+                        Delete
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        Edit
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
