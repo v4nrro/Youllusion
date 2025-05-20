@@ -2,16 +2,14 @@ import { Component, DestroyRef, inject, signal } from '@angular/core';
 import {
   NonNullableFormBuilder,
   ReactiveFormsModule,
-  Validators,
 } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AuthService } from '../service/auth.service';
 import { Router, RouterLink } from '@angular/router';
-import { ValidationClassesDirective } from '../../shared/directives/validation-classes.directive';
 
 @Component({
   selector: 'login',
-  imports: [ReactiveFormsModule, ValidationClassesDirective, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -24,8 +22,8 @@ export class LoginComponent {
     errorMsg = signal('');
 
     loginForm = this.#fb.group({
-        email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required]],
+        email: [''],
+        password: [''],
     });
 
     hideShowPassword() {

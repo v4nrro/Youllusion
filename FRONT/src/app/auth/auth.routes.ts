@@ -12,4 +12,9 @@ export const authRoutes: Routes = [
         loadComponent: () => import('./register/register.component').then(m => m.RegisterComponent),
         canActivate: [logoutActivateGuard],
     },
+    {
+        path: 'callback',
+        loadComponent: () => import('./google-callback/google-callback.component').then(m => m.GoogleCallbackComponent),
+        canActivate: [logoutActivateGuard],
+    },
 ];

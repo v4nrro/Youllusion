@@ -74,6 +74,54 @@ const login = async (req, res) => {
     }
 };
 
+const googleCallback = async (req, res) => {
+    try {
+        const user = {
+            _id: null,
+            username: null,
+            email: null,
+            role: null,
+        }
+
+        const foundUser = await Users.findOne({ email: req.user.emails[0].value })
+
+        if (foundUser) {
+            user._id = foundUser._id;
+            user.username = foundUser.username;
+            user.email = foundUser.email;
+            user.role = foundUser.role
+        }
+        else {
+            const newUser = new Users({
+                username: req.user.name.givenName,
+                email: req.user.emails[0].value,
+                password: 'google',
+                avatar: req.user.photos[0].value,
+            });
+
+            user._id = newUser._id;
+            user.username = newUser.username;
+            user.email = newUser.email;
+            user.role = newUser.role
+
+            await newUser.save();
+        }
+
+        const payload = {
+            userId: user._id,
+            username: user.username,
+            email: user.email,
+            role: user.role
+        };
+
+        const token = jwt.sign(payload, process.env.JWT_SECRET);
+
+        res.redirect(`http://localhost:4200/auth/callback?token=${token}`); 
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
 const validate = async (req, res) => {
     return res.status(200).json({
         message: "Token is valid",
@@ -85,4 +133,5 @@ module.exports = {
     register,
     login,
     validate,
+    googleCallback,
 };
