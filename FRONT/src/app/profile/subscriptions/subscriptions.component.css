@@ -1,3 +1,17 @@
 a {
     text-decoration: none;
 }
+
+.card {
+    background-color: var(--bg);
+    color: white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    border-top-left-radius: 150px;
+    border-bottom-left-radius: 150px;
+
+    &:hover {
+        transform: scale(1.01);
+        box-shadow: 0 2px 20px var(--hover) !important;
+    }
+}
