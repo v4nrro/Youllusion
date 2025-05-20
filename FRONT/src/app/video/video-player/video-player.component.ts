@@ -44,7 +44,6 @@ export class VideoPlayerComponent {
                 this.author.set(resp);
                 this.subscribed.set(resp.subscribed);
                 this.userMe.set(resp.me);
-                console.log(this.subscribed());
             });
         })
     }

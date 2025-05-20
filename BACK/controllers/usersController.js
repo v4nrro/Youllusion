@@ -33,7 +33,6 @@ const getUserById = async (req, res) => {
                 subsIds = user.subscribers.map(sub => sub._id.toString());
 
                 user.subscribed = subsIds.includes(req.user.userId);
-                console.log(req.user.userId);
             }
         }
 

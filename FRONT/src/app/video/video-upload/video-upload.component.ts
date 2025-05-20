@@ -17,8 +17,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     styleUrl: './video-upload.component.css',
 })
 export class VideoUploadComponent {
-    passwordType = signal('password');
-    errorMsg = signal('');
     selectedMiniature: File | null = null;
     selectedVideo: File | null = null;
     imagePreview = signal<string | ArrayBuffer | null>(null);

@@ -5,7 +5,7 @@ import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'video-card',
-  imports: [RouterLink, DatePipe],
+  imports: [DatePipe],
   templateUrl: './video-card.component.html',
   styleUrl: './video-card.component.css'
 })
