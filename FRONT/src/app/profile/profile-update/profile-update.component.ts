@@ -1,0 +1,84 @@
+import { Component, DestroyRef, inject, model, signal } from '@angular/core';
+import { Profile } from '../interfaces/Profile';
+import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AuthService } from '../../auth/service/auth.service';
+import { Router } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ValidationClassesDirective } from '../../shared/directives/validation-classes.directive';
+
+@Component({
+  selector: 'profile-update',
+  imports: [ValidationClassesDirective, ReactiveFormsModule, FormsModule],
+  templateUrl: './profile-update.component.html',
+  styleUrl: './profile-update.component.css'
+})
+export class ProfileUpdateComponent {
+    profile = model.required<Profile>();
+    passwordType = signal('password');
+    #fb = inject(NonNullableFormBuilder);
+    #authService = inject(AuthService);
+    #destroyRef = inject(DestroyRef);
+    #router = inject(Router);
+    errorMsg = signal('');
+    selectedFile: File | null = null;
+    imagePreview = signal<string | ArrayBuffer | null>(null);
+
+    registerForm = this.#fb.group({
+        email: ['', [Validators.required, Validators.email]],
+        username: ['', [Validators.required]],
+        password: ['', [Validators.required]],
+        repeatPassword: ['', [Validators.required]],
+        avatar: [null, [Validators.required]],
+    });
+
+    hideShowPassword() {
+        this.passwordType.update((type) =>
+            type === 'password' ? 'text' : 'password'
+        );
+    }
+
+    onFileSelected(event: any) {
+        const file = event.target.files[0];
+        if (file) {
+            this.selectedFile = file;
+
+            const input = event.target as HTMLInputElement;
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                const reader = new FileReader();
+    
+                reader.onload = () => {
+                    this.imagePreview.set(reader.result);
+                };
+    
+                reader.readAsDataURL(file);
+            }
+        } else {
+            this.selectedFile = null;
+            this.imagePreview.set(null);
+        }
+    }
+
+    register() {
+        const formData = new FormData();
+
+        formData.append('username', this.registerForm.getRawValue().username);
+        formData.append('email', this.registerForm.getRawValue().email);
+        formData.append('password', this.registerForm.getRawValue().password);
+        formData.append(
+            'repeatPassword',
+            this.registerForm.getRawValue().repeatPassword
+        );
+
+        if (this.selectedFile) {
+            formData.append('avatar', this.selectedFile);
+        }
+
+        this.#authService
+            .register(formData)
+            .pipe(takeUntilDestroyed(this.#destroyRef))
+            .subscribe(() => {
+                this.#router.navigate(['/auth/login']);
+            });
+    } 
+}

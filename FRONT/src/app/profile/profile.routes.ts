@@ -29,6 +29,14 @@ export const profileRoutes: Routes = [
         canActivate: [loginActivateGuard],
     },
     {
+        path: 'update/:id',
+        loadComponent: () => import('./profile-update/profile-update.component').then(m => m.ProfileUpdateComponent),
+        title: 'Profile Page',
+        resolve: {
+            profile: profileResolver
+        },
+    },
+    {
         path: ':id',
         loadComponent: () => import('./profile/profile.component').then(m => m.ProfileComponent),
         title: 'Profile Page',
