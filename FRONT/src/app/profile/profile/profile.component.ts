@@ -34,6 +34,7 @@ export class ProfileComponent {
                 this.profile.set({_id: resp.user._id,
                     username: resp.user.username,
                     avatar: resp.user.avatar,
+                    email: resp.user.email,
                     me: resp.user.me,
                     posts: resp.user.posts,
                     subscriptions: resp.user.subscriptions,

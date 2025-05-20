@@ -30,7 +30,7 @@ export const profileRoutes: Routes = [
     },
     {
         path: 'update/:id',
-        loadComponent: () => import('./profile-update/profile-update.component').then(m => m.ProfileUpdateComponent),
+        loadComponent: () => import('./profile-edit/profile-edit.component').then(m => m.ProfileEditComponent),
         title: 'Profile Page',
         resolve: {
             profile: profileResolver

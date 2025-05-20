@@ -1,0 +1,330 @@
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col">
+            <h2>Settings <i class="bi bi-gear"></i></h2>
+            <hr />
+            <div class="card-body">
+                <div class="text-center mb-4">
+                    <img
+                        [src]="profile().avatar"
+                        class="rounded-circle border shadow-sm mb-3"
+                        width="150"
+                        height="150"
+                        alt="Profile Picture"
+                    />
+                    <h5 class="">{{ profile().username }}</h5>
+                    <p class="">{{ profile().email }}</p>
+                </div>
+
+                <div class="accordion" id="userSettingsAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button
+                                class="accordion-button collapsed fw-medium"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#collapsePassword"
+                                aria-expanded="false"
+                                aria-controls="collapsePassword"
+                            >
+                                <i class="bi bi-key me-2"></i> Change Password
+                            </button>
+                        </h2>
+                        <div
+                            id="collapsePassword"
+                            class="accordion-collapse collapse"
+                            data-bs-parent="#userSettingsAccordion"
+                        >
+                            <div class="accordion-body">
+                                <form
+                                    [formGroup]="passwordForm"
+                                    (ngSubmit)="editPassword()"
+                                    id="form-password"
+                                >
+                                    <div class="mb-3">
+                                        <label class="form-label"
+                                            >Previous password
+                                            <i
+                                                (click)="hideShowPassword()"
+                                                class="ms-3 bi {{
+                                                    passwordType() ===
+                                                    'password'
+                                                        ? 'bi-eye-slash'
+                                                        : 'bi-eye'
+                                                }} pointer"
+                                            ></i>
+                                        </label>
+                                        <div class="input-group">
+                                            <input
+                                                [type]="passwordType()"
+                                                formControlName="previousPassword"
+                                                placeholder="Enter new password"
+                                                class="form-control"
+                                                [validationClasses]="{
+                                                    valid: 'is-valid',
+                                                    invalid: 'is-invalid'
+                                                }"
+                                            />
+                                        </div>
+
+                                        @let previousPasswordError =
+                                        passwordForm.get('previousPassword')?.errors;
+                                        @if(previousPasswordError?.['required']){
+                                        <div class="invalid-feedback">
+                                            Password is required
+                                        </div>
+                                        }
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label"
+                                            >Password
+                                        </label>
+                                        <div class="input-group">
+                                            <input
+                                                [type]="passwordType()"
+                                                formControlName="newPassword"
+                                                placeholder="Enter new password"
+                                                class="form-control"
+                                                [validationClasses]="{
+                                                    valid: 'is-valid',
+                                                    invalid: 'is-invalid'
+                                                }"
+                                            />
+                                        </div>
+
+                                        @let passwordError =
+                                        passwordForm.get('newPassword')?.errors;
+                                        @if(passwordError?.['required']){
+                                        <div class="invalid-feedback">
+                                            Password is required
+                                        </div>
+                                        }
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label"
+                                            >Confirm Password</label
+                                        >
+                                        <input
+                                            [type]="passwordType()"
+                                            formControlName="confirmNewPassword"
+                                            placeholder="Confirm new password"
+                                            class="form-control"
+                                            [validationClasses]="{
+                                                valid: 'is-valid',
+                                                invalid: 'is-invalid'
+                                            }"
+                                        />
+
+                                        @let repeatPasswordError =
+                                        passwordForm.get('confirmNewPassword')?.errors;
+                                        @if(repeatPasswordError?.['required']){
+                                        <div class="invalid-feedback">
+                                            Confirm password is required
+                                        </div>
+                                        }
+                                    </div>
+
+                                    <div class="d-grid gap-2">
+                                        <button
+                                            type="submit"
+                                            class="btn btn-primary"
+                                        >
+                                            Save Password
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button
+                                class="accordion-button collapsed fw-medium"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#collapseCredentials"
+                                aria-expanded="false"
+                                aria-controls="collapseCredentials"
+                            >
+                                <i class="bi bi-person me-2"></i> Update Profile
+                            </button>
+                        </h2>
+                        <div
+                            id="collapseCredentials"
+                            class="accordion-collapse collapse"
+                            data-bs-parent="#userSettingsAccordion"
+                        >
+                            <div class="accordion-body">
+                                <form
+                                    [formGroup]="credentialsForm"
+                                    (ngSubmit)="editCredentials()"
+                                    id="form-credentials"
+                                >
+                                    <div class="mb-3">
+                                        <label class="form-label"
+                                            >Email address</label
+                                        >
+                                        <input
+                                            type="email"
+                                            formControlName="email"
+                                            placeholder="Enter your email"
+                                            class="form-control"
+                                            [validationClasses]="{
+                                                valid: 'is-valid',
+                                                invalid: 'is-invalid'
+                                            }"
+                                        />
+
+                                        @let emailError =
+                                        credentialsForm.get('email')?.errors;
+                                        @if(emailError?.['required']){
+                                        <div class="invalid-feedback">
+                                            Email is required
+                                        </div>
+                                        } @if(emailError?.['email']){
+                                        <div class="invalid-feedback">
+                                            Email must have a valid format
+                                        </div>
+                                        }
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label"
+                                            >Username</label
+                                        >
+                                        <input
+                                            type="text"
+                                            formControlName="username"
+                                            placeholder="Enter your username"
+                                            class="form-control"
+                                            [validationClasses]="{
+                                                valid: 'is-valid',
+                                                invalid: 'is-invalid'
+                                            }"
+                                        />
+
+                                        @let usernameError =
+                                        credentialsForm.get('username')?.errors;
+                                        @if(usernameError?.['required']){
+                                        <div class="invalid-feedback">
+                                            Username is required
+                                        </div>
+                                        }
+                                    </div>
+
+                                    <div class="d-grid gap-2">
+                                        <button
+                                            type="submit"
+                                            class="btn btn-primary"
+                                        >
+                                            Save Profile
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button
+                                class="accordion-button collapsed fw-medium"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#collapseAvatar"
+                                aria-expanded="false"
+                                aria-controls="collapseAvatar"
+                            >
+                                <i class="bi bi-image me-2"></i> Change Avatar
+                            </button>
+                        </h2>
+                        <div
+                            id="collapseAvatar"
+                            class="accordion-collapse collapse"
+                            data-bs-parent="#userSettingsAccordion"
+                        >
+                            <div class="accordion-body">
+                                <form
+                                    [formGroup]="avatarForm"
+                                    (ngSubmit)="editAvatar()"
+                                    id="form-avatar"
+                                >
+                                    <div class="mb-3">
+                                        <label for="avatar" class="form-label"
+                                            >Select Image</label
+                                        >
+                                        <input
+                                            type="file"
+                                            class="form-control"
+                                            accept="image/*"
+                                            encodeBase64
+                                            (change)="onFileSelected($event)"
+                                            formControlName="avatar"
+                                            [validationClasses]="{
+                                                valid: 'is-valid',
+                                                invalid: 'is-invalid'
+                                            }"
+                                        />
+                                        <div class="invalid-feedback">
+                                            An image is required.
+                                        </div>
+                                    </div>
+
+                                    @if(imagePreview()){
+                                    <div class="text-center mt-3">
+                                        <p class="text-muted">Preview:</p>
+                                        <img
+                                            [src]="imagePreview()"
+                                            alt="Avatar Preview"
+                                            class="rounded-circle mb-3"
+                                            style="
+                                                width: 150px;
+                                                height: 150px;
+                                                object-fit: cover;
+                                            "
+                                        />
+                                    </div>
+                                    }
+
+                                    <div class="d-grid gap-2">
+                                        <button
+                                            type="submit"
+                                            class="btn btn-primary"
+                                        >
+                                            Save Avatar
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-danger mt-5 p-0">
+            <div class="card-header bg-danger text-white">
+                <h5>Danger Zone</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="fw-bold mb-1">Delete Account</h6>
+                        <p class="text-muted mb-0 small">
+                            Once deleted, your account cannot be recovered.
+                        </p>
+                    </div>
+                    <button
+                        class="btn btn-outline-danger"
+                        (click)="deleteAccount()"
+                    >
+                        Delete Account
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

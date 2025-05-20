@@ -1,5 +1,7 @@
 const Users = require('../models/Users');
 const bcrypt = require('bcrypt');
+const Posts = require('../models/Posts');
+const Comments = require('../models/Comments');
 
 const getAllUsers = async (req, res) => {
     try {
@@ -17,7 +19,7 @@ const getUserById = async (req, res) => {
     try {
         const user = await Users
             .findById(req.params.id)
-            .select("username posts subscribers avatar me")
+            .select("username posts subscribers avatar me email")
             .populate("posts")
             .populate("subscribers");
 
@@ -177,6 +179,8 @@ const putPassword = async (req, res) => {
 
 const deleteByMe = async (req, res) => {
     try {
+        await Posts.deleteMany({ author: req.user.userId });
+        await Comments.deleteMany({ author: req.user.userId });
         await Users.findByIdAndDelete(req.user.userId);
 
         res.status(200).json({ message: "Account deleted succesfully"});
