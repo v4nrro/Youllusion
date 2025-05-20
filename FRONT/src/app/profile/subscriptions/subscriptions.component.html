@@ -1,5 +1,6 @@
 @for(user of this.users(); track user._id) {
-    <h2 class="d-flex justify-content-center mb-5">Subscriptions</h2>
+    <h2>Subscriptions</h2>
+    <hr>
 
     <div class="d-flex justify-content-center">
         <a [routerLink]="['/profile', user._id]" >

@@ -1,5 +1,6 @@
 @if(loggedUser()){
     <h2>My videos</h2>
+    <hr>
     @if(loggedUser()!.posts.length > 0){
         @for(post of posts(); track post._id){
             <a (click)="goToEdit(post._id)">
