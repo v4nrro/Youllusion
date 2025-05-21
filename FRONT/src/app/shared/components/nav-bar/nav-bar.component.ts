@@ -1,4 +1,4 @@
-import { Component, computed, inject, model, signal } from '@angular/core';
+import { Component, effect, inject, model, signal } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../../auth/service/auth.service';
 import { User } from '../../../auth/interfaces/User';
@@ -14,17 +14,20 @@ export class NavBarComponent {
     #authService = inject(AuthService);
     #router = inject(Router);
     user = signal<User | null>(null);
-    
-    logged = computed(() => {
-        return this.#authService.getLogged()
-    });
+    logged = signal<Boolean>(false); 
 
     
     constructor() {
-        this.#authService.getLoggedUser()
-        .subscribe((resp) => {
-            this.user.set(resp.user);
-        });
+        effect(() => {
+            this.logged.set(this.#authService.getLogged())
+
+            if(this.logged()){
+                this.#authService.getLoggedUser()
+                .subscribe((resp) => {
+                    this.user.set(resp.user);
+                });
+            }
+        })
     }
 
     navItems = [
