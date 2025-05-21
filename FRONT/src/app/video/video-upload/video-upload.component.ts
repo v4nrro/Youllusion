@@ -30,7 +30,7 @@ export class VideoUploadComponent {
         video: [null, [Validators.required]],
         title: ['', [Validators.required]],
         description: ['', [Validators.required]],
-        price: ['', [Validators.min(0)]],
+        price: ['', [Validators.required, Validators.min(0)]],
         miniature: [null, [Validators.required]],
     });
 
