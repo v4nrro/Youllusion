@@ -12,8 +12,6 @@ const getComments = async (req, res) => {
             return res.status(404).json({ message: "No comments found" });
         }
 
-        // TODO: Check if the user has liked or disliked any comment?
-        
         return res.status(200).json({ message: "Comments found", comments});
     } catch (error) {
         return res.status(500).json({ message: error.message });

@@ -1,5 +1,16 @@
 const Posts = require("../models/Posts");
 const Users = require("../models/Users")
+const nodemailer = require('nodemailer')
+
+require('dotenv').config();
+
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASSWORD
+    }
+})
 
 const getAllPosts = async (req, res) => {
     try {
@@ -109,6 +120,26 @@ const postPost = async (req, res) => {
 
         await Users.findByIdAndUpdate(savedPost.author, {
             $push: { posts: savedPost._id },
+        });
+
+        // Creating and sending emails to subs
+        const author = await Users.findById(savedPost.author);
+
+        author.subscribers.forEach(async (subscriber) => {
+            const user = await Users.findById(subscriber);
+
+            const mailOptions = {
+                from: process.env.EMAIL_USER,
+                to: user.email,
+                subject: `Nuevo vídeo de ${author.username}!`,
+                text: `${author.username} ha subido un nuevo vídeo, ve a verlo en Youllusion.com`
+            }
+
+            transporter.sendMail(mailOptions, (error, info) => {
+                if(error) {
+                    return res.status(500).json({ message: "Error sending emails ", error });
+                }
+            })
         });
 
         res.status(200).json({ message: "Post created successfully", savedPost });
