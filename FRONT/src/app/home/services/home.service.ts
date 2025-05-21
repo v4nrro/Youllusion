@@ -1,27 +1,38 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { CommentsResponse, PostsResponse, SinglePostResponse } from '../interfaces/responses';
+import {
+    CommentsResponse,
+    PostsResponse,
+    SinglePostResponse,
+} from '../interfaces/responses';
 import { Post, SingleComment } from '../interfaces/Post';
 import { User } from '../../auth/interfaces/User';
 import { SubscriptionsResponse } from '../../auth/interfaces/responses';
 
 @Injectable({
-  providedIn: 'root',
+    providedIn: 'root',
 })
-
 export class HomeService {
     #homeUrl = 'posts';
     #http = inject(HttpClient);
 
-    getPosts(): Observable<Post[]> {
-        return this.#http.get<PostsResponse>(`${this.#homeUrl}`).pipe(
-            map((resp) => {
-                return resp.posts;
-            })
-        );
+    getPosts(page: number, limit: number, search: string): Observable<Post[]> {
+        const params = new URLSearchParams({
+            page: String(page),
+            limit: String(limit),
+            search,
+        });
+
+        return this.#http
+            .get<PostsResponse>(`${this.#homeUrl}?${params.toString()}`)
+            .pipe(
+                map((resp) => {
+                    return resp.posts;
+                })
+            );
     }
-    
+
     getMyPosts(): Observable<Post[]> {
         return this.#http.get<PostsResponse>(`${this.#homeUrl}`).pipe(
             map((resp) => {
@@ -31,19 +42,23 @@ export class HomeService {
     }
 
     postPost(formData: FormData): Observable<Post> {
-        return this.#http.post<SinglePostResponse>(`${this.#homeUrl}`, formData).pipe(
-            map((resp) => {
-                return resp.post
-            })
-        )
+        return this.#http
+            .post<SinglePostResponse>(`${this.#homeUrl}`, formData)
+            .pipe(
+                map((resp) => {
+                    return resp.post;
+                })
+            );
     }
 
     putPost(formData: FormData, id: string): Observable<Post> {
-        return this.#http.put<SinglePostResponse>(`${this.#homeUrl}/${id}`, formData).pipe(
-            map((resp) => {
-                return resp.post
-            })
-        )
+        return this.#http
+            .put<SinglePostResponse>(`${this.#homeUrl}/${id}`, formData)
+            .pipe(
+                map((resp) => {
+                    return resp.post;
+                })
+            );
     }
 
     deletePost(id: string): Observable<void> {
@@ -59,19 +74,23 @@ export class HomeService {
     }
 
     getSubscriptions(): Observable<User[]> {
-        return this.#http.get<SubscriptionsResponse>(`users/subscriptions`).pipe(
-            map((resp) => {
-                return resp.subscriptions;
-            })
-        );
+        return this.#http
+            .get<SubscriptionsResponse>(`users/subscriptions`)
+            .pipe(
+                map((resp) => {
+                    return resp.subscriptions;
+                })
+            );
     }
 
     getPost(id: string): Observable<Post> {
-        return this.#http.get<SinglePostResponse>(`${this.#homeUrl}/${id}`).pipe(
-            map((resp) => {
-                return resp.post
-            })
-        )
+        return this.#http
+            .get<SinglePostResponse>(`${this.#homeUrl}/${id}`)
+            .pipe(
+                map((resp) => {
+                    return resp.post;
+                })
+            );
     }
 
     likePost(id: string): Observable<Post> {

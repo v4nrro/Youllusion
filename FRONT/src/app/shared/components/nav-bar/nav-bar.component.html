@@ -19,16 +19,18 @@
                 </a>
             </div>
 
-            <!-- TODO MAKE THIS FUNCTIONAL FETCHING THE DATA WITH SEARCH VIA QUERY PARAMS (Search bar) -->
             <div class="input-group mb-3">
                 <input
                     type="text"
                     class="form-control"
                     placeholder="Search..."
+                    #searchInput
+                    (keydown.enter)="search(searchInput.value)"
                 />
                 <button
                     class="btn btn-outline-secondary search-btn"
                     type="button"
+                    (click)="search(searchInput.value)"
                 >
                     <i class="bi bi-search"></i>
                 </button>

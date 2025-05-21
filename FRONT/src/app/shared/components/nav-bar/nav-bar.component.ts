@@ -39,7 +39,7 @@ export class NavBarComponent {
     }
     
     search(term: string) {
-        console.log('Searching for:', term);
+        this.#router.navigate([`/`], { queryParams: { search: term } })
     }
 
     logout() {

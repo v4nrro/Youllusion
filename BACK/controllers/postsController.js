@@ -3,11 +3,24 @@ const Users = require("../models/Users")
 
 const getAllPosts = async (req, res) => {
     try {
+        const page = parseInt(req.query.page) -1 || 0;
+        const limit = parseInt(req.query.limit) || 12;
+        const search = req.query.search || '';
+
         const posts = await Posts
-            .find()
+            .find({ title: { $regex: search, $options: "i" }})
+            .skip(page * limit)
+            .limit(limit)
             .populate("author", "username avatar subscibers")
 
-        res.status(200).json({ message: "Posts fetched successfully", posts });
+        res.status(200).json(
+            {
+                message: "Posts fetched successfully",
+                page: page + 1,
+                limit, 
+                posts 
+            }
+        );
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
