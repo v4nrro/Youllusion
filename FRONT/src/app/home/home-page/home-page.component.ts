@@ -33,7 +33,7 @@ export class HomePageComponent {
 
     constructor() {
         this.#route.queryParamMap.subscribe((params) => {
-            this.search.set(params.get('search'));
+            this.search.set(params.get('search') || '');
             this.limit.set(+params.get('limit')! || 12);
             this.page.set(+params.get('page')! || 1);
         });
