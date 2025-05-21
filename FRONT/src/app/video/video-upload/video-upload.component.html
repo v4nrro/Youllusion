@@ -90,6 +90,11 @@
                         Price can't be less than 0 
                     </div>
                     }
+                    @if(priceError ?.['required']) {
+                        <div class="invalid-feedback">
+                            Price must be 0 or higher
+                        </div>
+                    }
                 </div>
 
                 <div class="mb-3">
