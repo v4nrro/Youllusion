@@ -1,6 +1,5 @@
 @if(profile()){
     <div class="profile-container">
-        
         <div class="channel-header">
             <img
                 class="avatar"
@@ -22,13 +21,20 @@
         </div>
     
         <div class="d-flex justify-content-end mt-4">
-            <input class="form-control align-self-end" #searchInput type="text" placeholder="search" name="" id="">
+            <input 
+                class="form-control align-self-end" 
+                type="text" 
+                placeholder="search"
+                #searchInput
+                [value]="searchTerm()"
+                (input)="searchTerm.set(searchInput.value)"
+            >
         </div>
         <hr class="mb-0">
 
         @if(profile()!.posts.length > 0) {
             <div class="videos-grid">
-                @for (post of profile()!.posts; track post._id) {
+                @for (post of filteredPosts(); track post._id) {
                     <video-card [post]="post"></video-card>
                 }
             </div>
@@ -36,6 +42,5 @@
         @else {
             <p class="mt-4">This account has no posts</p>
         }
-
     </div>
 }

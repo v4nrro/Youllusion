@@ -16,6 +16,7 @@ export class ProfileComponent {
     profile = model.required<Profile>();
     subscribed = signal<boolean>(false);
     subscribers = signal<number | null>(null);
+    searchTerm = signal<string>('');
 
     #authService = inject(AuthService);
     #profileService = inject(ProfileService);
@@ -24,6 +25,18 @@ export class ProfileComponent {
 
     logged = computed(() => {
         return this.#authService.getLogged()
+    });
+
+    filteredPosts = computed(() => {
+        const term = this.searchTerm().toLowerCase();
+
+        if (!term) {
+            return this.profile().posts;
+        }
+
+        return this.profile().posts.filter(post =>
+            post.title.toLowerCase().includes(term)
+        );
     });
     
     constructor() {
