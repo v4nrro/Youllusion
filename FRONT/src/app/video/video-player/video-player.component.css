@@ -66,31 +66,16 @@ a{
 .comments {
     border: 1px solid var(--hover);
     border-radius: 10px;
-    height: 80vh;
 
     h2{
         padding: 1.3rem;
         border-bottom: 1px solid var(--hover);
     }
-
-    .input{
-        margin-top: 1rem;
-        border-top: 1px solid var(--hover);
-        width:100%;
-        background-color: var(--bg);
-        padding: 0.5rem;
-
-        input{
-            background-color: var(--bg);
-            color: white;
-        }
-        
-    }
 }
+
 .comment-section {
-    height: 60vh;
+    height: 90vh;
     overflow-y: auto;
-    padding: 1.3rem;
     margin-right: 0.2rem;
 }
 
@@ -100,20 +85,11 @@ a{
     white-space: normal;
 }
 
-.input-group {
-    .form-control {
-        background-color: var(--bg);
-        border: 0;
-        color: white;
-    
-        &::placeholder{
-            color: gray;
-        }
-        
-        &:focus{
-            outline: none;
-            box-shadow: none;
-        }
-        
-    }
+.input-area {
+    border-top: 1px solid var(--hover);
+    padding: 1rem;
+}
+
+.form-control {
+    border: 0;
 }

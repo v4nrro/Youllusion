@@ -15,3 +15,22 @@ a {
         box-shadow: 0 2px 20px var(--hover) !important;
     }
 }
+
+.user-avatar {
+    border-radius: 1000px;
+    width: 200px;
+    height: 200px;
+}
+
+.unsubscribe-button {
+  background-color: var(--link-hover);
+  color: black;
+  border: none;
+  padding: 8px 15px;
+  cursor: pointer;
+  border-radius: 20px;
+    
+    &:hover {
+        background-color: var(--link);
+    }
+}

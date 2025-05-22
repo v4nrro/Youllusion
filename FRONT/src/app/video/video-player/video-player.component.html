@@ -1,4 +1,4 @@
-<div class="row mb-5">
+<div class="row mb-5 me-2">
     <div class="video col">
         <video [src]="post().post" controls></video>
         <h3>{{ post().title }}</h3>
@@ -39,30 +39,33 @@
         </div>
         <p class="mt-3 description">{{ post().description }}</p>
     </div>
-    <div class="comments col">
+    <div class="comments col d-flex flex-column justify-content-between">
         <h2>Comments</h2>
         <div class="comment-section">
             @for(comment of this.comments(); track comment._id) {
-                <div class="comment-header d-flex align-items-center mt-3">
-                    <img
-                        [src]="comment.author.avatar"
-                        alt="Author avatar"
-                        class="user-avatar rounded-circle"
-                    />
-                    <div class="comment-author-info ms-2">
-                        <span class="comment-author-username">{{
-                            comment.author.username
-                        }}</span>
-                        <small class="ms-4 comment-date">{{
-                            comment.date | date : "short"
-                        }}</small>
+                <div class="comment mb-4">
+                    <div class="mb-2 comment-header d-flex align-items-center">
+                        <img
+                            [src]="comment.author.avatar"
+                            alt="Author avatar"
+                            class="user-avatar rounded-circle"
+                        />
+                        <div class="comment-author-info ms-2">
+                            <span class="comment-author-username">{{
+                                comment.author.username
+                            }}</span>
+                            <small class="ms-4 comment-date">{{
+                                comment.date | date : "short"
+                            }}</small>
+                        </div>
                     </div>
+                    
+                    <small class="ms-2 comment-text">{{ comment.text }}</small>
                 </div>
-                
-                <small class="m-3 mt-5 comment-text">{{ comment.text }}</small>
             }
         </div>
-        <div class="input input-group mb-3">
+
+        <div class="input-area row">
             <input
                 type="text"
                 class="form-control"

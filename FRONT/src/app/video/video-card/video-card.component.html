@@ -2,7 +2,7 @@
     <div class="yt-card">
         <a (click)="goToWatch(post()._id)">
             <div class="mb-2">
-                <img [src]="post().miniature" alt="video" class="img-fluid rounded">
+                <img [src]="post().miniature" alt="video" class="miniature img-fluid rounded">
             </div>
             <div class="row g-2">
                 @if(post().author._id){
