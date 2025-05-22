@@ -3,10 +3,11 @@ import { Profile } from '../interfaces/Profile';
 import { AuthService } from '../../auth/service/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProfileService } from '../service/profile.service';
+import { VideoCardComponent } from '../../video/video-card/video-card.component';
 
 @Component({
   selector: 'profile',
-  imports: [],
+  imports: [VideoCardComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })

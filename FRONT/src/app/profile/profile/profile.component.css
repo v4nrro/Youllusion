@@ -52,37 +52,14 @@
     }
 }
 
-.videos-section h2 {
-  margin-bottom: 10px;
-}
-
 .videos-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
 }
 
-.video-card {
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  overflow: hidden;
-}
-
-.video-thumbnail {
-  width: 100%;
-  height: auto;
-}
-
-.video-info {
-  padding: 10px;
-}
-
-.video-info h3 {
-  margin: 0;
-  font-size: 16px;
-}
-
-.video-info p {
-  margin: 5px 0 0;
-  color: gray;
+.form-control {
+    width: 400px;
+    height: 35px;
+    border-radius: 20px;
 }
