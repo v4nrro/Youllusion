@@ -8,4 +8,42 @@
             <video-card [post]="post"></video-card>
         </div>
     }
+    
+    @if(hasMore()) {
+        @for (placeholder of [1,2,3,4]; track placeholder) {
+            <div class="col-12 col-md-6 col-lg-6 col-xl-4 col-xxl-3 mb-4">
+                <div class="placeholder-glow">
+                    <div
+                        class="placeholder bg-secondary rounded"
+                        style="height: 180px; width: 100%"
+                    ></div>
+                </div>
+    
+                <div class="card-body px-0 py-3">
+                    <div class="d-flex">
+                        <div class="placeholder-glow me-3">
+                            <div
+                                class="placeholder bg-secondary rounded-circle"
+                                style="width: 36px; height: 36px"
+                            ></div>
+                        </div>
+    
+                        <div class="flex-grow-1">
+                            <h6 class="card-title placeholder-glow mb-1">
+                                <span class="placeholder col-12 mb-1"></span>
+                                <span class="placeholder col-8"></span>
+                            </h6>
+    
+                            <div class="placeholder-glow">
+                                <small class="text-muted">
+                                    <span class="placeholder col-6 mb-1 d-block"></span>
+                                    <span class="placeholder col-8"></span>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
 </div>

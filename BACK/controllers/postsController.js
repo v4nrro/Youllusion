@@ -18,7 +18,7 @@ const getAllPosts = async (req, res) => {
         const limit = parseInt(req.query.limit) || 12;
         const search = req.query.search || '';
         const filter = req.query.filter || '';
-        const price = 0;
+        let hasMore = true;
 
         let query = {
             title: { $regex: search, $options: 'i' }
@@ -35,13 +35,18 @@ const getAllPosts = async (req, res) => {
             .skip(page * limit)
             .limit(limit)
             .populate("author", "username avatar subscibers")
+            
+        if(posts.length < 12) {
+            hasMore = false;
+        }
 
         res.status(200).json(
             {
                 message: "Posts fetched successfully",
                 page: page + 1,
                 limit, 
-                posts 
+                posts,
+                hasMore
             }
         );
     } catch (error) {

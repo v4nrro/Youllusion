@@ -13,6 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 export class HomePageComponent {
     #homeService = inject(HomeService);
     #route = inject(ActivatedRoute);
+    #scrollTimeout: any;
 
     posts = signal<Post[]>([]);
 
@@ -20,16 +21,21 @@ export class HomePageComponent {
     filter = signal<string>('');
     limit = signal<number>(12);
     page = signal<number>(1);
+    hasMore = signal<boolean>(true);
 
     @HostListener('window:scroll', [])
     onScroll(): void {
-        const windowHeight = window.innerHeight;
-        const documentHeight = document.documentElement.scrollHeight;
-        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        clearTimeout(this.#scrollTimeout);
+    
+        this.#scrollTimeout = setTimeout(() => {
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
 
-        if (windowHeight + scrollTop >= documentHeight - 200) {
-            this.loadMore();
-        }
+            if (windowHeight + scrollTop >= documentHeight - 200) {
+                this.loadMore();
+            }
+        }, 1000);
     }
 
     constructor() {
@@ -44,13 +50,17 @@ export class HomePageComponent {
             if (this.page() === 1) {
                 this.#homeService
                     .getPosts(this.page(), this.limit(), this.search()!, this.filter()!)
-                    .subscribe((response) => this.posts.set(response));
+                    .subscribe((response) => {
+                        this.posts.set(response.posts);
+                        this.hasMore.set(response.hasMore);
+                    });
             } else {
                 this.#homeService
                     .getPosts(this.page(), this.limit(), this.search()!, this.filter()!)
-                    .subscribe((response) =>
-                        this.posts.update((posts) => [...posts, ...response])
-                    );
+                    .subscribe((response) => {
+                        this.posts.update((posts) => [...posts, ...response.posts]);
+                        this.hasMore.set(response.hasMore);
+                    });
             }
         });
     }
@@ -60,6 +70,7 @@ export class HomePageComponent {
     }
 
     filterPosts(filter: string) {
+        this.page.set(1);
         this.filter.set(filter);
     }
 }

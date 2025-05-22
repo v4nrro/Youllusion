@@ -17,7 +17,7 @@ export class HomeService {
     #homeUrl = 'posts';
     #http = inject(HttpClient);
 
-    getPosts(page: number, limit: number, search: string, filter: string): Observable<Post[]> {
+    getPosts(page: number, limit: number, search: string, filter: string): Observable<PostsResponse> {
         const params = new URLSearchParams({
             page: String(page),
             limit: String(limit),
@@ -29,7 +29,7 @@ export class HomeService {
             .get<PostsResponse>(`${this.#homeUrl}?${params.toString()}`)
             .pipe(
                 map((resp) => {
-                    return resp.posts;
+                    return resp;
                 })
             );
     }
