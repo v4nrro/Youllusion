@@ -7,8 +7,6 @@ const {
     putPost,
     deleteByAuthor,
     deleteByAdmin,
-    getFreePosts,
-    getPaidPosts,
     getLikedPosts,
     addOrRemoveLike,
     addOrRemoveDislike,
@@ -20,8 +18,6 @@ const router = express.Router();
 
 router.get("/", getAllPosts);
 router.get("/liked", authenticate, getLikedPosts);
-router.get("/free", getFreePosts);
-router.get("/paid", getPaidPosts);
 router.get("/:id", optionalAuthenticate, getPostById);
 
 router.post("/like/:id", authenticate, addOrRemoveLike);

@@ -17,11 +17,12 @@ export class HomeService {
     #homeUrl = 'posts';
     #http = inject(HttpClient);
 
-    getPosts(page: number, limit: number, search: string): Observable<Post[]> {
+    getPosts(page: number, limit: number, search: string, filter: string): Observable<Post[]> {
         const params = new URLSearchParams({
             page: String(page),
             limit: String(limit),
             search,
+            filter
         });
 
         return this.#http

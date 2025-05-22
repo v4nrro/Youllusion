@@ -17,9 +17,21 @@ const getAllPosts = async (req, res) => {
         const page = parseInt(req.query.page) -1 || 0;
         const limit = parseInt(req.query.limit) || 12;
         const search = req.query.search || '';
+        const filter = req.query.filter || '';
+        const price = 0;
+
+        let query = {
+            title: { $regex: search, $options: 'i' }
+        };
+
+        if (filter === 'free') {
+            query.price = 0;
+        } else if (filter === 'paid') {
+            query.price = { $gt: 0 };
+        }
 
         const posts = await Posts
-            .find({ title: { $regex: search, $options: "i" }})
+            .find(query)
             .skip(page * limit)
             .limit(limit)
             .populate("author", "username avatar subscibers")
@@ -32,30 +44,6 @@ const getAllPosts = async (req, res) => {
                 posts 
             }
         );
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-};
-
-const getFreePosts = async (req, res) => {
-    try {
-        const posts = await Posts
-            .find({ price: 0 })
-            .populate("author", "username avatar subscibers")
-    
-        res.status(200).json({ message: "Posts fetched successfully", posts });
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-};
-
-const getPaidPosts = async (req, res) => {
-    try {
-        const posts = await Posts
-            .find({ price: { $gt: 0 } })
-            .populate("author", "username avatar subscibers")
-    
-        res.status(200).json({ message: "Posts fetched successfully", posts });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -306,8 +294,6 @@ module.exports = {
     putPost,
     deleteByAdmin,
     deleteByAuthor,
-    getFreePosts,
-    getPaidPosts,
     getLikedPosts,
     addOrRemoveLike,
     addOrRemoveDislike,

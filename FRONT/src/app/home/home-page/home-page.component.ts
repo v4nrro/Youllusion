@@ -16,8 +16,9 @@ export class HomePageComponent {
 
     posts = signal<Post[]>([]);
 
-    search = signal<string | null>(null);
-    limit = signal<number>(24);
+    search = signal<string>('');
+    filter = signal<string>('');
+    limit = signal<number>(12);
     page = signal<number>(1);
 
     @HostListener('window:scroll', [])
@@ -34,6 +35,7 @@ export class HomePageComponent {
     constructor() {
         this.#route.queryParamMap.subscribe((params) => {
             this.search.set(params.get('search') || '');
+            this.filter.set(params.get('filter') || '');
             this.limit.set(+params.get('limit')! || 12);
             this.page.set(+params.get('page')! || 1);
         });
@@ -41,11 +43,11 @@ export class HomePageComponent {
         effect(() => {
             if (this.page() === 1) {
                 this.#homeService
-                    .getPosts(this.page(), this.limit(), this.search()!)
+                    .getPosts(this.page(), this.limit(), this.search()!, this.filter()!)
                     .subscribe((response) => this.posts.set(response));
             } else {
                 this.#homeService
-                    .getPosts(this.page(), this.limit(), this.search()!)
+                    .getPosts(this.page(), this.limit(), this.search()!, this.filter()!)
                     .subscribe((response) =>
                         this.posts.update((posts) => [...posts, ...response])
                     );
@@ -55,5 +57,9 @@ export class HomePageComponent {
 
     loadMore() {
         this.page.set(this.page() + 1);
+    }
+
+    filterPosts(filter: string) {
+        this.filter.set(filter);
     }
 }

@@ -1,0 +1,18 @@
+.pill {
+    text-decoration: none;
+    color: white;
+    border: 1px solid var(--double-hover);
+    border-radius: 20px;
+    background-color: var(--hover);
+    padding: 0.4rem;
+    text-align: center;
+    width: 100px;
+    height: auto;
+    margin-left: 2rem;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+        background-color: var(--double-hover);
+    }
+}
