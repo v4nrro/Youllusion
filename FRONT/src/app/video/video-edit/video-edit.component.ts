@@ -17,6 +17,8 @@ import { HomeService } from '../../home/services/home.service';
 import { Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Post } from '../../home/interfaces/Post';
+import { DeleteModalComponent } from '../../shared/components/delete-modal/delete-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'video-edit',
@@ -33,6 +35,7 @@ export class VideoEditComponent {
     #fb = inject(NonNullableFormBuilder);
     #destroyRef = inject(DestroyRef);
     #router = inject(Router);
+    #ngbModal = inject(NgbModal);
 
     videoForm = this.#fb.group({
         title: ['', [Validators.required]],
@@ -54,6 +57,23 @@ export class VideoEditComponent {
                 this.imagePreview.set(videoData.miniature);
             }
         });
+    }
+
+    openModal() {
+        const modalRef = this.#ngbModal.open(DeleteModalComponent);
+
+        modalRef.componentInstance.title = 'Deleting video';
+        modalRef.componentInstance.body = 'Are you sure you want to delete this video?';
+
+        modalRef.result
+        .then((result) => {
+            if(result) {
+                this.deletePost();
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        })
     }
 
     onFileSelected(event: any) {

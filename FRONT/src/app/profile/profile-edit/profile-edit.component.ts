@@ -10,6 +10,8 @@ import { ValidationClassesDirective } from '../../shared/directives/validation-c
 import { ProfileService } from '../service/profile.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../auth/service/auth.service';
+import { DeleteModalComponent } from '../../shared/components/delete-modal/delete-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'profile-edit',
@@ -28,6 +30,7 @@ export class ProfileEditComponent {
     #router = inject(Router);
     #profileService = inject(ProfileService);
     #authService = inject(AuthService);
+    #ngbModal = inject(NgbModal);
 
     passwordForm = this.#fb.group({
         previousPassword: ['', [Validators.required]],
@@ -114,6 +117,23 @@ export class ProfileEditComponent {
                 console.log("Avatar changed succesfully!");
             });
         }
+    }
+
+    openModal() {
+        const modalRef = this.#ngbModal.open(DeleteModalComponent);
+
+        modalRef.componentInstance.title = 'Deleting account';
+        modalRef.componentInstance.body = 'Are you sure you want to delete this account?';
+
+        modalRef.result
+        .then((result) => {
+            if(result) {
+                this.deleteAccount();
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        })
     }
 
     deleteAccount() {

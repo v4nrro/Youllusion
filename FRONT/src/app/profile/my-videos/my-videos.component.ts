@@ -6,10 +6,12 @@ import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { HomeService } from '../../home/services/home.service';
 import { Post } from '../../home/interfaces/Post';
+import { DeleteModalComponent } from '../../shared/components/delete-modal/delete-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'my-videos',
-    imports: [DatePipe],
+    imports: [ DatePipe ],
     templateUrl: './my-videos.component.html',
     styleUrl: './my-videos.component.css',
 })
@@ -21,11 +23,29 @@ export class MyVideosComponent {
     #authService = inject(AuthService);
     #destroyRef = inject(DestroyRef);
     #homeService = inject(HomeService);
+    #ngbModal = inject(NgbModal);
 
     constructor() {
         effect(() => {
             this.loadLoggedUser();
         });
+    }
+
+    openModal(id: string) {
+        const modalRef = this.#ngbModal.open(DeleteModalComponent);
+
+        modalRef.componentInstance.title = 'Deleting video';
+        modalRef.componentInstance.body = 'Are you sure you want to delete this video?';
+
+        modalRef.result
+        .then((result) => {
+            if(result) {
+                this.deleteVideo(id)
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        })
     }
 
     deleteVideo(id: string) {
@@ -50,6 +70,6 @@ export class MyVideosComponent {
     }
 
     goToEdit(id: string) {
-        this.#router.navigate(['/video/edit', id]);
+        this.#router.navigate(['/video/edit', id], { queryParams: { collapse: true }});
     }
 }
