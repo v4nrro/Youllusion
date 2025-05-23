@@ -15,7 +15,7 @@ export class VideoCardComponent {
     #router = inject(Router);
 
     goToWatch(id: string) {
-        this.#router.navigate(['/watch', id])
+        this.#router.navigate(['/watch', id], { queryParams: { collapse: true }})
     }
 
     goToAuthor(id: string) {

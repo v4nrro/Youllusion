@@ -25,7 +25,11 @@
 
                     <i
                         (click)="hideShowPassword()"
-                        class="ms-3 bi {{ passwordType() === 'password' ? 'bi-eye-slash' : 'bi-eye' }} pointer"
+                        class="ms-3 bi {{
+                            passwordType() === 'password'
+                                ? 'bi-eye-slash'
+                                : 'bi-eye'
+                        }} pointer"
                     ></i>
 
                     <input
@@ -38,11 +42,16 @@
 
                 <div class="d-flex align-items-center">
                     <button type="submit" class="btn btn-primary">Login</button>
-                    <div class="text-danger ms-3" id="errorInfo">{{ errorMsg() }}</div>
+                    <div class="text-danger ms-3" id="errorInfo">
+                        {{ errorMsg() }}
+                    </div>
                 </div>
             </form>
             <div class="login-footer mt-4">
-                <p>Don't have an account? <a [routerLink]="['/auth/register']">Create one</a></p>
+                <p>
+                    Don't have an account?
+                    <a [routerLink]="['/auth/register']" [queryParams]="{ collapse: true }">Create one</a>
+                </p>
                 <p class="small mt-3">
                     By continuing, you agree to Youllusion's
                     <a href="#">Terms of Service</a> and
@@ -54,7 +63,19 @@
         <div class="d-flex justify-content-center mt-5 mb-5">Or</div>
 
         <div class="d-flex justify-content-center">
-            <a href="http://localhost:8080/auth/google/login">Google login</a> 
+            <a
+                class="btn btn-light border d-flex align-items-center shadow-sm px-3 py-2 text-black"
+                href="http://localhost:8080/auth/google/login"
+            >
+                <img
+                    src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+                    alt="Google Logo"
+                    width="20"
+                    height="20"
+                    class="me-2"
+                />
+                <span>Sign in with Google</span>
+            </a>
         </div>
     </div>
 </div>

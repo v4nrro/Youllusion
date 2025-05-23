@@ -10,7 +10,7 @@ export const loginActivateGuard: CanActivateFn = (route, state) => {
     return authService.isLogged()
     .pipe(map((result) => {
         if(!result){
-            return router.createUrlTree(['/auth/login']);
+            return router.createUrlTree(['/auth/login'], { queryParams: { collapse: true }});
         }
         return true;
     }))

@@ -1,5 +1,5 @@
-import { Component, effect, inject, model, signal } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, effect, inject, input, signal } from '@angular/core';
+import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../../auth/service/auth.service';
 import { User } from '../../../auth/interfaces/User';
 
@@ -10,12 +10,13 @@ import { User } from '../../../auth/interfaces/User';
   styleUrl: './nav-bar.component.css'
 })
 export class NavBarComponent {
-    isMenuCollapsed = model(true);
     #authService = inject(AuthService);
     #router = inject(Router);
+    #route = inject(ActivatedRoute);
     user = signal<User | null>(null);
     logged = signal<Boolean>(false); 
 
+    isCollapsed = signal<Boolean>(false);
     
     constructor() {
         effect(() => {
@@ -27,6 +28,10 @@ export class NavBarComponent {
                     this.user.set(resp.user);
                 });
             }
+
+            this.#route.queryParamMap.subscribe((params) => {
+                this.isCollapsed.set(!!params.get('collapse'));
+            });
         })
     }
 
@@ -38,7 +43,7 @@ export class NavBarComponent {
     ];
 
     toggleSidebar() {
-        this.isMenuCollapsed.update(isMenuCollapsed => !isMenuCollapsed);
+        this.isCollapsed.update(isCollapsed => !isCollapsed);
     }
     
     search(term: string) {

@@ -39,12 +39,14 @@
                 <div class="d-flex align-items-center">
                     <a
                         [routerLink]="['/video/upload']"
+                        [queryParams]="{ collapse: true }"
                         class="btn btn-outline-light border-0 ms-2"
                     >
                         <i class="bi bi-camera-video fs-5"></i>
                     </a>
                     <a
                         [routerLink]="['/profile/update', user()!._id]"
+                        [queryParams]="{ collapse: true }"
                         class="btn btn-outline-light border-0 ms-2"
                     >
                         <i class="bi bi-gear fs-5"></i>
@@ -61,7 +63,7 @@
                 </div>
             } @else {
                 <div class="d-flex align-items-center">
-                    <a [routerLink]="['/auth/login']" class="btn btn-primary ms-2">
+                    <a [routerLink]="['/auth/login']" [queryParams]="{ collapse: 'true' }" class="btn btn-primary ms-2">
                         Login
                     </a>
                 </div>
@@ -70,7 +72,7 @@
     </nav>
 
     <div class="content-area">
-        <div class="sidebar" [class]="{ collapsed: isMenuCollapsed() }">
+        <div class="sidebar" [class]="{ collapsed: isCollapsed() }">
             <div class="sidebar-menu">
                 @for (item of navItems; track $index) {
                     <div class="sidebar-item">
@@ -89,11 +91,10 @@
                         </a>
                     </div>
                 }
-                <!-- TODO: Add admin role routes here -->
             </div>
         </div>
 
-        <div class="main-content" [class]="{ expanded: isMenuCollapsed() }">
+        <div class="main-content" [class]="{ expanded: isCollapsed() }">
             <div class="">
                 <ng-content select="[routes]"></ng-content>
             </div>
