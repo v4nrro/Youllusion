@@ -9,10 +9,12 @@ import { Router } from '@angular/router';
 import { ValidationClassesDirective } from '../../shared/directives/validation-classes.directive';
 import { HomeService } from '../../home/services/home.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ImageCropperComponent, ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
     selector: 'video-upload',
-    imports: [ReactiveFormsModule, FormsModule, ValidationClassesDirective],
+    imports: [ReactiveFormsModule, FormsModule, ValidationClassesDirective, ImageCropperComponent],
     templateUrl: './video-upload.component.html',
     styleUrl: './video-upload.component.css',
 })
@@ -20,11 +22,15 @@ export class VideoUploadComponent {
     selectedMiniature: File | null = null;
     selectedVideo: File | null = null;
     imagePreview = signal<string | ArrayBuffer | null>(null);
+    imageChangedEvent: Event | null = null;
+    croppedImage: SafeUrl  = '';
+    
 
     #homeService = inject(HomeService);
     #fb = inject(NonNullableFormBuilder);
     #destroyRef = inject(DestroyRef);
     #router = inject(Router);
+    #sanitizer = inject(DomSanitizer);
 
     videoForm = this.#fb.group({
         video: [null, [Validators.required]],
@@ -33,6 +39,23 @@ export class VideoUploadComponent {
         price: ['', [Validators.required, Validators.min(0)]],
         miniature: [null, [Validators.required]],
     });
+
+    fileChangeEvent(event: Event): void {
+        this.imageChangedEvent = event;
+    }
+    imageCropped(event: ImageCroppedEvent) {
+      this.croppedImage = this.#sanitizer.bypassSecurityTrustUrl(event.objectUrl as string);
+      // event.blob can be used to upload the cropped image
+    }
+    imageLoaded(image: LoadedImage) {
+        // show cropper
+    }
+    cropperReady() {
+        // cropper ready
+    }
+    loadImageFailed() {
+        // show message
+    }
 
     onFileSelected(event: any, type: 'video' | 'miniature') {
         const file = event.target.files[0];

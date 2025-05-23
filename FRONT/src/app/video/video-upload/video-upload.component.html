@@ -114,6 +114,22 @@
                     <div class="invalid-feedback">The miniature is required</div>
                 </div>
 
+                <input type="file" class="form-control"
+                        accept="image/*" (change)="fileChangeEvent($event)" />
+
+                <image-cropper
+                    [imageChangedEvent]="imageChangedEvent"
+                    [maintainAspectRatio]="true"
+                    [aspectRatio]="4 / 3"
+                    format="png"
+                    (imageCropped)="imageCropped($event)"
+                    (imageLoaded)="imageLoaded($event)"
+                    (cropperReady)="cropperReady()"
+                    (loadImageFailed)="loadImageFailed()"
+                ></image-cropper>
+
+                <img [src]="croppedImage"/>
+
                 @if(selectedMiniature){
                     <img
                         [src]="imagePreview()"
