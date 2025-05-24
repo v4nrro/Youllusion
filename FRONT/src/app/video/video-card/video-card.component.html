@@ -1,6 +1,6 @@
 <div class="container mt-5">
     <div class="yt-card">
-        <a (click)="goToWatch(post()._id)">
+        <a (click)="post().price <= 0 ? goToWatch(post()._id) : payModal(post().title, post().author.username)">
             <div class="mb-2">
                 <img [src]="post().miniature" alt="video" class="img-fluid rounded">
             </div>
@@ -18,7 +18,9 @@
                         <h5 class="mb-1">{{ post().title }}</h5>
                         
                         @if(post().price > 0) {
-                            <!-- TODO: Implement a good icon to see if the video is free or paid -->
+                            <span class="paid-badge ms-2" title="Paid Video">
+                                <i class="bi bi-cash-coin"></i> {{post().price}}€
+                            </span> 
                         }
                     </div>
 
