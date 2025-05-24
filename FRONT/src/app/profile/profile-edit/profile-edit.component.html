@@ -328,3 +328,15 @@
         </div>
     </div>
 </div>
+
+@if(showToast()){
+    <ngb-toast 
+        class="bg-success text-white"
+        header="Success"
+        [autohide]="true"
+        [delay]="3000"
+        (hidden)="showToast.set(false)"
+    >
+        Profile upsated succesfully!
+    </ngb-toast>
+}

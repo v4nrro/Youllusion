@@ -8,14 +8,13 @@ import {
 } from '@angular/forms';
 import { ValidationClassesDirective } from '../../shared/directives/validation-classes.directive';
 import { ProfileService } from '../service/profile.service';
-import { Router } from '@angular/router';
 import { AuthService } from '../../auth/service/auth.service';
 import { DeleteModalComponent } from '../../shared/components/delete-modal/delete-modal.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbToast } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'profile-edit',
-    imports: [ValidationClassesDirective, ReactiveFormsModule, FormsModule],
+    imports: [ValidationClassesDirective, ReactiveFormsModule, FormsModule, NgbToast],
     templateUrl: './profile-edit.component.html',
     styleUrl: './profile-edit.component.css',
 })
@@ -24,10 +23,10 @@ export class ProfileEditComponent {
     passwordType = signal('password');
     errorMsg = signal('');
     selectedFile: File | null = null;
+    showToast = signal<Boolean>(false);
     imagePreview = signal<string | ArrayBuffer | null>(null);
 
     #fb = inject(NonNullableFormBuilder);
-    #router = inject(Router);
     #profileService = inject(ProfileService);
     #authService = inject(AuthService);
     #ngbModal = inject(NgbModal);
@@ -92,6 +91,7 @@ export class ProfileEditComponent {
         this.#profileService
             .editCredentials(this.credentialsForm.getRawValue())
             .subscribe((resp) => {
+                this.showToast.set(true);
                 // TODO: Reload?
                 console.log("Credentials changed succesfully!");
             });
@@ -101,6 +101,7 @@ export class ProfileEditComponent {
         this.#profileService
             .editPassword(this.passwordForm.getRawValue())
             .subscribe(() => {
+                this.showToast.set(true);
                 // TODO: Show toast and reload?
                 console.log('Password changed succesfully!');
             });
@@ -113,6 +114,7 @@ export class ProfileEditComponent {
 
             this.#profileService.editAvatar(formData)
             .subscribe((resp) => {
+                this.showToast.set(true);
                 // TODO: Reload?
                 console.log("Avatar changed succesfully!");
             });
@@ -138,6 +140,7 @@ export class ProfileEditComponent {
 
     deleteAccount() {
         this.#profileService.deleteMyAccount().subscribe(() => {
+            this.showToast.set(true);
             this.#authService.logout()        
         })
     }
