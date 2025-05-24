@@ -92,8 +92,7 @@ export class ProfileEditComponent {
             .editCredentials(this.credentialsForm.getRawValue())
             .subscribe((resp) => {
                 this.showToast.set(true);
-                // TODO: Reload?
-                console.log("Credentials changed succesfully!");
+                window.location.reload();
             });
     }
 
@@ -102,8 +101,6 @@ export class ProfileEditComponent {
             .editPassword(this.passwordForm.getRawValue())
             .subscribe(() => {
                 this.showToast.set(true);
-                // TODO: Show toast and reload?
-                console.log('Password changed succesfully!');
             });
     }
 
@@ -115,8 +112,7 @@ export class ProfileEditComponent {
             this.#profileService.editAvatar(formData)
             .subscribe((resp) => {
                 this.showToast.set(true);
-                // TODO: Reload?
-                console.log("Avatar changed succesfully!");
+                window.location.reload();
             });
         }
     }
