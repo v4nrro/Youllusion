@@ -27,6 +27,24 @@
 					"response": []
 				},
 				{
+					"name": "liked Posts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/posts/liked",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"posts",
+								"liked"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "free Posts",
 					"request": {
 						"method": "GET",
@@ -81,19 +99,38 @@
 					"response": []
 				},
 				{
-					"name": "by Author ID",
+					"name": "add or remove Like",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "{{BASE_URL}}/posts/author/{{AUTHOR_ID}}",
+							"raw": "{{BASE_URL}}/posts/like/{{POST_ID}}",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
 								"posts",
-								"author",
-								"{{AUTHOR_ID}}"
+								"like",
+								"{{POST_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add or remove Dislike",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/posts/dislike/{{POST_ID}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"posts",
+								"dislike",
+								"{{POST_ID}}"
 							]
 						}
 					},
@@ -129,7 +166,7 @@
 								{
 									"key": "miniature",
 									"type": "file",
-									"src": "/C:/Users/Iván/Desktop/Grado Superior/TFG/Youllusion dummyImage.jpg"
+									"src": "postman-cloud:///1f0357fd-028d-4120-8145-1bc8233994cf"
 								},
 								{
 									"key": "title",
@@ -148,7 +185,7 @@
 								},
 								{
 									"key": "price",
-									"value": "9.99",
+									"value": "0",
 									"type": "text"
 								}
 							]
@@ -186,14 +223,9 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "post",
-									"type": "file",
-									"src": "/C:/Users/navar/Desktop/Grado Superior/TFG/Youllusion Video Test.mov"
-								},
-								{
 									"key": "miniature",
 									"type": "file",
-									"src": "/C:/Users/navar/Desktop/Grado Superior/TFG/Youllusion Image Test.png"
+									"src": "/C:/Users/Iván/Pictures/Images/Juan Tamariz.jpeg"
 								},
 								{
 									"key": "title",
@@ -273,36 +305,18 @@
 					"response": []
 				},
 				{
-					"name": "Me",
+					"name": "Subscriptions",
 					"request": {
-						"method": "DELETE",
+						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{BASE_URL}}/users/me",
+							"raw": "{{BASE_URL}}/users/subscriptions",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
 								"users",
-								"me"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "by Admin",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{BASE_URL}}/users/67fb84a25a74a4c5286c0b34",
-							"host": [
-								"{{BASE_URL}}"
-							],
-							"path": [
-								"users",
-								"67fb84a25a74a4c5286c0b34"
+								"subscriptions"
 							]
 						}
 					},
@@ -338,6 +352,25 @@
 							],
 							"path": [
 								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add or remove Subscription",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/users/subscribe/{{AUTHOR_ID}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"users",
+								"subscribe",
+								"{{AUTHOR_ID}}"
 							]
 						}
 					},
@@ -427,12 +460,141 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Me",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/users/me",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "by Admin",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/users/67fb84a25a74a4c5286c0b34",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"users",
+								"67fb84a25a74a4c5286c0b34"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
 		{
 			"name": "Comments",
 			"item": [
+				{
+					"name": "Comments",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\": \"This is dummy text for a comment\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/comments/682197504ad3a01a6c29e92c",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"comments",
+								"682197504ad3a01a6c29e92c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add or remove Like",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/comments/like/{{COMMENT_ID}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"comments",
+								"like",
+								"{{COMMENT_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add or remove Dislike",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/posts/dislike/{{COMMENT_ID}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"posts",
+								"dislike",
+								"{{COMMENT_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "Comment",
 					"event": [
@@ -453,7 +615,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"author\": \"{{AUTHOR_ID}}\",\r\n    \"text\": \"This is dummy text for a comment\",\r\n    \"post\": \"{{POST_ID}}\"\r\n}",
+							"raw": "{\r\n    \"text\": \"This is dummy text for a comment This is dummy text for a comment This is dummy text for a comment This is dummy text for a comment This is dummy text for a comment This is dummy text for a comment This is dummy text for a comment\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -461,12 +623,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{BASE_URL}}/comments",
+							"raw": "{{BASE_URL}}/comments/{{POST_ID}}",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
-								"comments"
+								"comments",
+								"{{POST_ID}}"
 							]
 						}
 					},
@@ -496,48 +659,18 @@
 			"name": "Auth",
 			"item": [
 				{
-					"name": "Register",
+					"name": "Validate",
 					"request": {
-						"method": "POST",
+						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "avatar",
-									"type": "file",
-									"src": "/C:/Users/navar/Desktop/Grado Superior/TFG/Youllusion Image Test.png"
-								},
-								{
-									"key": "username",
-									"value": "hola",
-									"type": "text"
-								},
-								{
-									"key": "email",
-									"value": "hola@hola.com",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "1234",
-									"type": "text"
-								},
-								{
-									"key": "repeatPassword",
-									"value": "1234",
-									"type": "text"
-								}
-							]
-						},
 						"url": {
-							"raw": "{{BASE_URL}}/auth/register",
+							"raw": "{{BASE_URL}}/auth/validate",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
 								"auth",
-								"register"
+								"validate"
 							]
 						}
 					},
@@ -584,36 +717,48 @@
 					"response": []
 				},
 				{
-					"name": "Logout",
+					"name": "Register",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
-						"url": {
-							"raw": "{{BASE_URL}}/auth/logout",
-							"host": [
-								"{{BASE_URL}}"
-							],
-							"path": [
-								"auth",
-								"logout"
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": "/C:/Users/Iván/Desktop/Grado Superior/TFG/Youllusion dummyImage.jpg"
+								},
+								{
+									"key": "username",
+									"value": "ivan",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "hola@hola.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "1234",
+									"type": "text"
+								},
+								{
+									"key": "repeatPassword",
+									"value": "1234",
+									"type": "text"
+								}
 							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Validate",
-					"request": {
-						"method": "GET",
-						"header": [],
+						},
 						"url": {
-							"raw": "{{BASE_URL}}/auth/validate",
+							"raw": "{{BASE_URL}}/auth/register",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
 								"auth",
-								"validate"
+								"register"
 							]
 						}
 					},

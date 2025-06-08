@@ -43,5 +43,4 @@ Thumbs.db
 
 # Added by me
 /public
-/uploads
 *.env
