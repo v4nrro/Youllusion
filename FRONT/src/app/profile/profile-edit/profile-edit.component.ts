@@ -91,8 +91,8 @@ export class ProfileEditComponent {
         this.#profileService
             .editCredentials(this.credentialsForm.getRawValue())
             .subscribe((resp) => {
+                this.profile.set(resp);
                 this.showToast.set(true);
-                window.location.reload();
             });
     }
 
@@ -111,8 +111,8 @@ export class ProfileEditComponent {
 
             this.#profileService.editAvatar(formData)
             .subscribe((resp) => {
+                this.profile.set(resp);
                 this.showToast.set(true);
-                window.location.reload();
             });
         }
     }

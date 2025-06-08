@@ -80,7 +80,7 @@ export class RegisterComponent {
             .register(formData)
             .pipe(takeUntilDestroyed(this.#destroyRef))
             .subscribe(() => {
-                this.#router.navigate(['/auth/login']);
+                this.#router.navigate(['/auth/login'], { queryParams: {collapse: true }});
             });
     }
 }

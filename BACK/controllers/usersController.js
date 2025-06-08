@@ -116,7 +116,7 @@ const putCredentials = async (req, res) => {
             return res.status(404).json({ message: "User not found" });
         }
 
-        res.status(200).json({ message: "Credentials updated succesfully", updatedUser });
+        res.status(200).json({ message: "Credentials updated succesfully", user: updatedUser });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -138,7 +138,7 @@ const putAvatar = async (req, res) => {
             return res.status(404).json({ message: "User not found" });
         }
 
-        res.status(200).json({ message: "Avatar updated succesfully", updatedUser });
+        res.status(200).json({ message: "Avatar updated succesfully", user: updatedUser });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -171,7 +171,7 @@ const putPassword = async (req, res) => {
             { new: true, runValidators: true }
         );
 
-        res.status(200).json({ message: "Password updated succesfully", updatedUser});
+        res.status(200).json({ message: "Password updated succesfully", user: updatedUser});
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

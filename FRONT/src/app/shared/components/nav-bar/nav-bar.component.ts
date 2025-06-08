@@ -52,6 +52,6 @@ export class NavBarComponent {
 
     logout() {
         this.#authService.logout();
-        this.#router.navigate(['/auth/login']);
+        this.#router.navigate(['/auth/login'], {queryParams: { collapse: true }});
     }
 }
